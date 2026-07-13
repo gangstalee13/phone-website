@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkout — iPhone Shop</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="checkout.css" />
 </head>
 <body>
   <header class="site-header">
@@ -24,53 +25,56 @@
     </div>
   </header>
 
-  <main class="container" style="padding:2rem 1rem;max-width:960px;">
+  <main class="container checkout-main">
     <div class="section-heading">
       <h2>Your Cart &amp; Checkout</h2>
       <p>Review items, choose payment method (Ecocash or Bank Transfer), and place your order.</p>
     </div>
 
-    <section id="cart-view">
-      <div id="cart-items"></div>
-      <div id="cart-summary" style="margin-top:1rem"></div>
-    </section>
+    <div class="checkout-layout">
+      <section id="cart-view" class="checkout-card">
+        <h3>Order Summary</h3>
+        <div id="cart-items"></div>
+        <div id="cart-summary"></div>
+      </section>
 
-    <section id="payment-section" style="margin-top:2rem;">
-      <h3>Payment</h3>
-      <form id="payment-form">
-        <label style="display:block;margin-bottom:0.5rem">Full name<input name="name" required /></label>
-        <label style="display:block;margin-bottom:0.5rem">Email<input name="email" type="email" required /></label>
-        <label style="display:block;margin-bottom:0.5rem">Order type
-          <select id="order-type" name="orderType">
-            <option value="full">Full payment</option>
-            <option value="deposit">Pre-order deposit (75%)</option>
-          </select>
-        </label>
-        <div id="order-amount-summary" style="margin-bottom:0.75rem;color:#cbd5e1;font-size:0.95rem"></div>
-        <label style="display:block;margin-bottom:0.5rem">Payment method
-          <select id="payment-method" name="method">
-            <option value="ecocash">Ecocash (mobile money)</option>
-            <option value="bank">Bank Transfer</option>
-          </select>
-        </label>
+      <section id="payment-section" class="checkout-card">
+        <h3>Payment</h3>
+        <form id="payment-form">
+          <label class="form-field">Full name<input name="name" required /></label>
+          <label class="form-field">Email<input name="email" type="email" required /></label>
+          <label class="form-field">Order type
+            <select id="order-type" name="orderType">
+              <option value="full">Full payment</option>
+              <option value="deposit">Pre-order deposit (75%)</option>
+            </select>
+          </label>
+          <div id="order-amount-summary" class="order-amount-summary"></div>
+          <label class="form-field">Payment method
+            <select id="payment-method" name="method">
+              <option value="ecocash">Ecocash (mobile money)</option>
+              <option value="bank">Bank Transfer</option>
+            </select>
+          </label>
 
-        <div id="ecocash-fields" style="margin-top:0.5rem">
-          <label>Phone (Ecocash number)<input name="ecocash_phone" placeholder="+2637XXXXXXXX" /></label>
-        </div>
+          <div id="ecocash-fields" class="payment-method-fields">
+            <label class="form-field">Phone (Ecocash number)<input name="ecocash_phone" placeholder="+2637XXXXXXXX" /></label>
+          </div>
 
-        <div id="bank-fields" style="display:none;margin-top:0.5rem">
-          <label>Bank name<input name="bank_name" placeholder="Bank name" /></label>
-          <label>Account name<input name="bank_account_name" placeholder="Account holder" /></label>
-          <label>Account number<input name="bank_account_number" placeholder="Account number" /></label>
-        </div>
+          <div id="bank-fields" class="payment-method-fields hidden">
+            <label class="form-field">Bank name<input name="bank_name" placeholder="Bank name" /></label>
+            <label class="form-field">Account name<input name="bank_account_name" placeholder="Account holder" /></label>
+            <label class="form-field">Account number<input name="bank_account_number" placeholder="Account number" /></label>
+          </div>
 
-        <div style="margin-top:1rem">
-          <button type="submit" class="button button-primary">Place Order</button>
-        </div>
-      </form>
+          <div class="payment-actions">
+            <button type="submit" class="button button-primary">Place Order</button>
+          </div>
+        </form>
 
-      <div id="payment-result" style="margin-top:1rem"></div>
-    </section>
+        <div id="payment-result" class="payment-result"></div>
+      </section>
+    </div>
   </main>
 
   <div id="cart-modal" class="modal hidden">
@@ -96,10 +100,10 @@
     const summary = document.getElementById('cart-summary');
     container.innerHTML = '';
     let total = 0;
-    if (!Object.keys(cart).length){ container.innerHTML = '<p>Your cart is empty.</p>'; summary.innerHTML=''; updateCartCount(); return }
+    if (!Object.keys(cart).length){ container.innerHTML = '<p class="cart-empty">Your cart is empty.</p>'; summary.innerHTML=''; updateCartCount(); return }
 
     const list = document.createElement('div');
-    list.style.display='grid'; list.style.gap='0.6rem';
+    list.className = 'cart-list';
 
     for(const id of Object.keys(cart)){
       const qty = cart[id];
@@ -107,34 +111,33 @@
       total += (p.price||0)*qty;
 
       const row = document.createElement('div');
-      row.style.display='flex'; row.style.alignItems='center'; row.style.gap='0.75rem'; row.style.padding='0.6rem 0';
+      row.className = 'cart-row';
 
       const thumb = document.createElement('div');
-      thumb.style.width='64px'; thumb.style.height='64px'; thumb.style.flex='0 0 64px'; thumb.style.borderRadius='8px'; thumb.style.overflow='hidden';
-      thumb.style.backgroundColor='rgba(255,255,255,0.03)';
-      if (p.image){ thumb.style.backgroundImage = `url('${p.image}')`; thumb.style.backgroundSize='cover'; thumb.style.backgroundPosition='center'; }
+      thumb.className = 'cart-row-thumb';
+      if (p.image){ thumb.style.backgroundImage = `url('${p.image}')`; }
 
       const info = document.createElement('div');
-      info.style.flex='1';
-      info.innerHTML = `<div style="font-weight:700">${p.name}</div><div style="color:#cbd5e1">${p.desc || ''}</div>`;
+      info.className = 'cart-row-info';
+      info.innerHTML = `<div class="cart-row-name">${p.name}</div><div class="cart-row-desc">${p.desc || ''}</div>`;
 
       const controls = document.createElement('div');
-      controls.style.display='flex'; controls.style.alignItems='center'; controls.style.gap='0.5rem';
+      controls.className = 'cart-row-controls';
 
       const qtyBox = document.createElement('input');
-      qtyBox.type='number'; qtyBox.min=1; qtyBox.value = qty; qtyBox.style.width='64px'; qtyBox.addEventListener('change', (e)=>{
+      qtyBox.type='number'; qtyBox.min=1; qtyBox.value = qty; qtyBox.className = 'qty-input'; qtyBox.addEventListener('change', (e)=>{
         const v = Math.max(1, parseInt(e.target.value)||1);
-        const current = getCart(); current[id] = v; saveCart(current); renderCart();
+        const current = getCart(); current[id] = v; saveCart(current); renderCart(); refreshSummary();
       });
 
       const removeBtn = document.createElement('button');
       removeBtn.className='button button-sm'; removeBtn.textContent='Remove';
       removeBtn.addEventListener('click', ()=>{
-        const current = getCart(); delete current[id]; saveCart(current); renderCart();
+        const current = getCart(); delete current[id]; saveCart(current); renderCart(); refreshSummary();
       });
 
       const price = document.createElement('div');
-      price.style.minWidth='110px'; price.style.textAlign='right'; price.innerHTML = `$${fmt((p.price||0)*qty)}`;
+      price.className = 'cart-row-price'; price.innerHTML = `$${fmt((p.price||0)*qty)}`;
 
       controls.appendChild(qtyBox);
       controls.appendChild(removeBtn);
@@ -159,15 +162,15 @@
     const totalEl = document.getElementById('cart-modal-total');
     container.innerHTML = '';
     let total = 0;
-    if (!Object.keys(cart).length){ container.innerHTML = '<p>Your cart is empty.</p>'; totalEl.textContent='0.00'; return }
+    if (!Object.keys(cart).length){ container.innerHTML = '<p class="cart-empty">Your cart is empty.</p>'; totalEl.textContent='0.00'; return }
     const list = document.createElement('div');
-    list.style.display='grid'; list.style.gap='0.6rem';
+    list.className = 'cart-modal-list';
     for(const id of Object.keys(cart)){
       const qty = cart[id];
       const p = products.find(x=>x.id===id) || {name:id,price:0};
       total += (p.price||0)*qty;
       const item = document.createElement('div');
-      item.style.display='flex'; item.style.justifyContent='space-between'; item.style.alignItems='center'; item.style.padding='0.55rem 0';
+      item.className = 'cart-modal-item';
       item.innerHTML = `<span>${p.name} × ${qty}</span><span>$${fmt((p.price||0)*qty)}</span>`;
       list.appendChild(item);
     }
@@ -203,29 +206,29 @@
   // NOTE: renderCart() is defined earlier in this file (with color + desc).
   // Keeping only one definition prevents duplicate-function confusion.
 
+  async function refreshSummary(){
+    const products = await fetch('products.json').then(r=>r.ok? r.json(): [] ).catch(()=>[]);
+    const total = computeCartTotal(products, getCart());
+    updateCartSummary(total);
+  }
 
   document.addEventListener('DOMContentLoaded',()=>{
     renderCart();
     updateCartCount();
+    refreshSummary();
 
     const method = document.getElementById('payment-method');
     const orderType = document.getElementById('order-type');
     const eco = document.getElementById('ecocash-fields');
     const bank = document.getElementById('bank-fields');
 
-    function refreshSummary(){
-      const products = await fetch('products.json').then(r=>r.ok? r.json(): [] ).catch(()=>[]);
-      const total = computeCartTotal(products, getCart());
-      updateCartSummary(total);
-    }
-
     method.addEventListener('change',()=>{
-      if (method.value==='ecocash'){ eco.style.display='block'; bank.style.display='none' }
-      else { eco.style.display='none'; bank.style.display='block' }
+      if (method.value==='ecocash'){ eco.classList.remove('hidden'); bank.classList.add('hidden') }
+      else { eco.classList.add('hidden'); bank.classList.remove('hidden') }
     });
 
     orderType.addEventListener('change', ()=>{
-      renderCart();
+      refreshSummary();
     });
 
     document.getElementById('payment-form').addEventListener('submit',async (e)=>{

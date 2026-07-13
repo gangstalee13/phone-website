@@ -1,0 +1,167 @@
+/* ===================================================================
+   checkout.css
+   Page-specific styles for checkout.html (layout, cart rows, payment
+   form sections). Load this AFTER styles.css — it relies on the base
+   theme, .button, .modal, and .cart-total rules defined there, plus
+   the site-wide input/select/.form-field styling in styles.css.
+   =================================================================== */
+
+.checkout-main {
+  padding: 2.5rem 1rem 5rem;
+  max-width: 960px;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.75rem;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+.checkout-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.75rem;
+  padding: 1.75rem;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+}
+
+.checkout-card h3 {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+  font-size: 1.15rem;
+}
+
+/* Cart line items */
+.cart-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cart-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cart-row-thumb {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.05);
+  background-size: cover;
+  background-position: center;
+}
+
+.cart-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-row-info .cart-row-name {
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.cart-row-info .cart-row-desc {
+  color: #94a3b8;
+  font-size: 0.88rem;
+  margin-top: 0.15rem;
+}
+
+.cart-row-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-row-price {
+  min-width: 90px;
+  text-align: right;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.cart-empty {
+  color: #94a3b8;
+  padding: 1rem 0.25rem;
+}
+
+/* Header "Cart" modal preview on checkout.html */
+.cart-modal-list {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.cart-modal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+}
+
+.cart-modal-item:last-child {
+  border-bottom: none;
+}
+
+/* Payment form */
+.qty-input {
+  width: 68px;
+  margin-top: 0;
+  padding: 0.5rem 0.6rem;
+  text-align: center;
+}
+
+.payment-method-fields {
+  margin-top: 0.25rem;
+}
+
+.order-amount-summary {
+  margin: -0.35rem 0 1.15rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: #bae6fd;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.payment-actions {
+  margin-top: 1.5rem;
+}
+
+.payment-result {
+  margin-top: 1.25rem;
+}
+
+.payment-result .feature-card {
+  padding: 1.1rem 1.4rem;
+}
+
+@media (max-width: 800px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .cart-row {
+    flex-wrap: wrap;
+  }
+
+  .cart-row-price {
+    text-align: left;
+    margin-left: calc(64px + 0.9rem);
+  }
+}
