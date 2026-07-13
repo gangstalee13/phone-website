@@ -41,8 +41,10 @@
       <section id="payment-section" class="checkout-card">
         <h3>Payment</h3>
         <form id="payment-form">
-          <label class="form-field">Full name<input name="name" required /></label>
-          <label class="form-field">Email<input name="email" type="email" required /></label>
+          <div class="payment-name-row">
+            <label class="form-field">Full name<input name="name" required /></label>
+            <label class="form-field">Email<input name="email" type="email" required /></label>
+          </div>
           <label class="form-field">Order type
             <select id="order-type" name="orderType">
               <option value="full">Full payment</option>

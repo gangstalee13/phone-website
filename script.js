@@ -286,8 +286,13 @@ function updateHeroScroll(){
 
 function updateCartUI(){
   const count = Object.values(cart).reduce((s,v)=>s+v,0);
-  document.getElementById('cart-count').textContent = count;
+  const countEl = document.getElementById('cart-count');
+  if (countEl) countEl.textContent = count;
+
   const list = document.getElementById('cart-list');
+  const totalEl = document.getElementById('cart-total');
+  if (!list || !totalEl) return; // page has no cart modal (e.g. homepage)
+
   list.innerHTML = '';
   let total = 0;
   for(const id in cart){
@@ -301,11 +306,71 @@ function updateCartUI(){
     li.innerHTML = `<span>${p.name}${color? ' ('+color+')':''} × ${qty}</span><span>$${fmt((p.price||0)*qty)}</span>`;
     list.appendChild(li);
   }
-  document.getElementById('cart-total').textContent = fmt(total);
+  totalEl.textContent = fmt(total);
+}
+
+function showToast(msg){
+  let toast = document.getElementById('site-toast');
+  if(!toast){
+    toast = document.createElement('div');
+    toast.id = 'site-toast';
+    toast.className = 'site-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('visible');
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(()=>toast.classList.remove('visible'), 3500);
+}
+
+// mailto: links are unreliable: on desktop they need a configured default
+// mail app, and either way the site owner wants Gmail specifically. This
+// routes the click to the Gmail app on mobile (falling back to the plain
+// mailto: if the app isn't installed) and to Gmail's web compose window
+// on desktop, while still copying the address to the clipboard as a
+// backup so the click is never a dead end.
+function isMobileDevice(){
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function initEmailFallback(){
+  document.querySelectorAll('a[href^="mailto:"]').forEach(link=>{
+    const raw = link.href.replace('mailto:','');
+    const [email, query = ''] = raw.split('?');
+    const params = new URLSearchParams(query);
+    const subject = params.get('subject') || '';
+    const body = params.get('body') || '';
+    if (!email) return;
+
+    link.addEventListener('click', (e)=>{
+      e.preventDefault();
+
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(email).catch(()=>{});
+      }
+
+      if (isMobileDevice()){
+        // Try the Gmail app first; if the page is still visible shortly
+        // after, assume it isn't installed and fall back to the system
+        // mail chooser via mailto:.
+        const gmailApp = `googlegmail://co?to=${encodeURIComponent(email)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const fallback = setTimeout(()=>{ window.location.href = link.href; }, 900);
+        window.addEventListener('blur', ()=>clearTimeout(fallback), {once:true});
+        window.addEventListener('pagehide', ()=>clearTimeout(fallback), {once:true});
+        window.location.href = gmailApp;
+        showToast(`Opening Gmail… address copied: ${email}`);
+      } else {
+        const gmailWeb = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(gmailWeb, '_blank', 'noopener');
+        showToast(`Opening Gmail in a new tab… address copied: ${email}`);
+      }
+    });
+  });
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
   window.scrollTo(0,0);
+  initEmailFallback();
   load();
   updateHeroScroll();
   window.addEventListener('scroll', updateHeroScroll);
@@ -328,7 +393,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (productsEl) productsEl.scrollIntoView({behavior:'smooth'});
   });
 
-  cartBtn.addEventListener('click',()=>cartModal.classList.remove('hidden'));
+  if (cartBtn && cartModal) cartBtn.addEventListener('click',()=>cartModal.classList.remove('hidden'));
 
   const clearCartBtn = document.getElementById('clear-cart-btn');
   if (clearCartBtn){
@@ -337,19 +402,25 @@ document.addEventListener('DOMContentLoaded',()=>{
       cartModal && cartModal.classList.add('hidden');
     });
   }
-  closeCart.addEventListener('click',()=>cartModal.classList.add('hidden'));
-  checkoutBtn.addEventListener('click',()=>{cartModal.classList.add('hidden'); checkoutModal.classList.remove('hidden')});
-  closeCheckout.addEventListener('click',()=>checkoutModal.classList.add('hidden'));
-  document.getElementById('close-viewer').addEventListener('click', closeProductViewer);
-  document.getElementById('rotate-button').addEventListener('click', toggleViewerRotation);
-  initViewerControls();
+  if (closeCart && cartModal) closeCart.addEventListener('click',()=>cartModal.classList.add('hidden'));
+  if (checkoutBtn && cartModal && checkoutModal) checkoutBtn.addEventListener('click',()=>{cartModal.classList.add('hidden'); checkoutModal.classList.remove('hidden')});
+  if (closeCheckout && checkoutModal) closeCheckout.addEventListener('click',()=>checkoutModal.classList.add('hidden'));
 
-  document.getElementById('checkout-form').addEventListener('submit',e=>{
-    e.preventDefault();
-    alert('Order placed (demo). Thank you!');
-    cart = {};
-    saveCart();
-    updateCartUI();
-    checkoutModal.classList.add('hidden');
-  });
+  const closeViewerBtn = document.getElementById('close-viewer');
+  const rotateBtn = document.getElementById('rotate-button');
+  if (closeViewerBtn) closeViewerBtn.addEventListener('click', closeProductViewer);
+  if (rotateBtn) rotateBtn.addEventListener('click', toggleViewerRotation);
+  if (document.getElementById('viewer-stage')) initViewerControls();
+
+  const checkoutForm = document.getElementById('checkout-form');
+  if (checkoutForm){
+    checkoutForm.addEventListener('submit',e=>{
+      e.preventDefault();
+      alert('Order placed (demo). Thank you!');
+      cart = {};
+      saveCart();
+      updateCartUI();
+      if (checkoutModal) checkoutModal.classList.add('hidden');
+    });
+  }
 });

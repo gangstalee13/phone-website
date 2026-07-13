@@ -122,8 +122,44 @@
   text-align: center;
 }
 
+#payment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#payment-form .form-field {
+  margin-bottom: 1rem;
+}
+
+/* Name + Email side by side on wider screens */
+.payment-name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
 .payment-method-fields {
-  margin-top: 0.25rem;
+  margin: 0 0 0.5rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  display: grid;
+  gap: 0.9rem;
+}
+
+.payment-method-fields .form-field {
+  margin-bottom: 0;
+}
+
+.payment-method-fields.hidden {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .payment-name-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .order-amount-summary {
