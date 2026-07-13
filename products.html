@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Products — iPhone Shop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><h1>iPhone Shop</h1></a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link active">Products</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="cart-btn" class="button button-primary">Cart (<span id="cart-count">0</span>)</button>
+        <a href="checkout.html" class="button button-primary">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="hero-copy">
+        <h2>Our Products</h2>
+        <p>All available iPhone models — browse, compare, and add to cart.</p>
+      </div>
+    </section>
+
+    <section id="products" class="products-grid"></section>
+  </main>
+
+
+  <div id="cart-modal" class="modal hidden">
+
+    <div class="modal-content">
+      <h2>Your Cart</h2>
+      <ul id="cart-list"></ul>
+      <div style="margin:0.75rem 0;display:flex;gap:0.75rem;">
+        <button id="clear-cart-btn" class="button button-secondary" type="button">Clear Cart</button>
+      </div>
+      <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+      <button id="checkout-btn">Checkout</button>
+      <button id="close-cart">Close</button>
+    </div>
+  </div>
+
+  <div id="checkout-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Checkout</h2>
+      <form id="checkout-form">
+        <label>Name<input name="name" required /></label>
+        <label>Address<input name="address" required /></label>
+        <label>Email<input name="email" type="email" required /></label>
+        <button type="submit">Place Order (demo)</button>
+      </form>
+      <button id="close-checkout">Close</button>
+    </div>
+  </div>
+
+  <div id="viewer-modal" class="modal hidden">
+    <div class="modal-content viewer-modal-content">
+      <div class="viewer-header">
+        <div>
+          <span class="eyebrow">Product Viewer</span>
+          <h2 id="viewer-title">Product</h2>
+          <p id="viewer-description">Inspect the phone from every angle using drag or rotate controls.</p>
+        </div>
+        <button id="rotate-button" class="button button-sm">Rotate 360°</button>
+      </div>
+      <div id="viewer-stage" class="viewer-stage" aria-label="Interactive product viewer">
+        <div class="viewer-card">
+          <div class="viewer-inner" id="viewer-inner">
+            <img id="viewer-front" class="viewer-face front" src="" alt="Front view" />
+            <img id="viewer-back" class="viewer-face back" src="" alt="Back view" />
+          </div>
+        </div>
+      </div>
+      <div class="viewer-footer">
+        <div class="viewer-meta">
+          <span id="viewer-price"></span>
+          <span class="viewer-hint">Drag the phone image or click Rotate 360°.</span>
+        </div>
+        <button id="close-viewer" class="button button-outline">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

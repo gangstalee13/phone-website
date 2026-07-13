@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cart — iPhone Shop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">iPhone Store</a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="cart-btn" class="button button-primary">Cart (<span id="cart-count">0</span>)</button>
+        <a href="checkout.html" class="button button-primary">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding:2rem 1rem;max-width:960px;">
+    <div class="section-heading">
+      <h2>Your Cart</h2>
+      <p>Review items and update quantities before checkout.</p>
+    </div>
+
+    <section id="cart-view">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+        <div id="cart-empty-hint" style="color:#cbd5e1;"></div>
+        <button id="clear-cart-page" class="button button-secondary" type="button">Clear Cart</button>
+      </div>
+
+      <div id="cart-items"></div>
+      <div id="cart-summary" style="margin-top:1rem;"></div>
+
+      <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <a href="products.html" class="button button-primary">Continue Shopping</a>
+        <a href="checkout.html" class="button button-primary">Proceed to Checkout</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="cart-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Your Cart</h2>
+      <ul id="cart-list"></ul>
+      <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+      <button id="checkout-btn">Checkout</button>
+      <button id="close-cart">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function fmt(n){return Number(n).toFixed(2)}
+    function getCart(){return JSON.parse(localStorage.getItem('cart')||'{}')}
+    function saveCart(cart){localStorage.setItem('cart', JSON.stringify(cart))}
+
+    function computeCartTotal(products, cart){
+      return Object.entries(cart).reduce((sum,[id,qty])=>{
+        const baseId = String(id).split('::')[0];
+        const p = products.find(x=>x.id===baseId) || {price:0};
+        return sum + (p.price||0) * qty;
+      },0);
+    }
+
+    async function fetchProducts(){
+      return fetch('products.json').then(r=>r.ok? r.json(): []).catch(()=>[]);
+    }
+
+    async function renderCart(){
+      const products = await fetchProducts();
+      const cart = getCart();
+      const container = document.getElementById('cart-items');
+      const summary = document.getElementById('cart-summary');
+      const emptyHint = document.getElementById('cart-empty-hint');
+      container.innerHTML='';
+
+      const keys = Object.keys(cart);
+      if (!keys.length){
+        emptyHint.textContent = 'Your cart is empty.';
+        summary.innerHTML='';
+        return;
+      }
+
+      emptyHint.textContent = '';
+
+      const list = document.createElement('div');
+      list.style.display='grid';
+      list.style.gap='0.6rem';
+
+      let total = 0;
+
+      for(const id of keys){
+        const qty = cart[id];
+        const parts = String(id).split('::');
+        const baseId = parts[0];
+        const color = parts[1] || '';
+        const p = products.find(x=>x.id===baseId) || {name:baseId,price:0,image:''};
+        total += (p.price||0)*qty;
+
+        const row = document.createElement('div');
+        row.style.display='flex';
+        row.style.alignItems='center';
+        row.style.gap='0.75rem';
+        row.style.padding='0.6rem 0';
+
+        const thumb = document.createElement('div');
+        thumb.style.width='64px';
+        thumb.style.height='64px';
+        thumb.style.flex='0 0 64px';
+        thumb.style.borderRadius='8px';
+        thumb.style.overflow='hidden';
+        thumb.style.backgroundColor='rgba(255,255,255,0.03)';
+        if (p.image){
+          thumb.style.backgroundImage = `url('${p.image}')`;
+          thumb.style.backgroundSize='cover';
+          thumb.style.backgroundPosition='center';
+        }
+
+        const info = document.createElement('div');
+        info.style.flex='1';
+        info.innerHTML = `<div style="font-weight:700">${p.name}${color ? ' ('+color+')' : ''}</div><div style="color:#cbd5e1">${p.desc || ''}</div>`;
+
+        const controls = document.createElement('div');
+        controls.style.display='flex';
+        controls.style.alignItems='center';
+        controls.style.gap='0.5rem';
+
+        const qtyBox = document.createElement('input');
+        qtyBox.type='number';
+        qtyBox.min=1;
+        qtyBox.value = qty;
+        qtyBox.style.width='72px';
+        qtyBox.addEventListener('change', (e)=>{
+          const v = Math.max(1, parseInt(e.target.value)||1);
+          const current = getCart();
+          current[id] = v;
+          saveCart(current);
+          renderCart();
+        });
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className='button button-sm';
+        removeBtn.textContent='Remove';
+        removeBtn.addEventListener('click', ()=>{
+          const current = getCart();
+          delete current[id];
+          saveCart(current);
+          renderCart();
+        });
+
+        const price = document.createElement('div');
+        price.style.minWidth='110px';
+        price.style.textAlign='right';
+        price.innerHTML = `$${fmt((p.price||0)*qty)}`;
+
+        controls.appendChild(qtyBox);
+        controls.appendChild(removeBtn);
+
+        row.appendChild(thumb);
+        row.appendChild(info);
+        row.appendChild(controls);
+        row.appendChild(price);
+
+        list.appendChild(row);
+      }
+
+      container.appendChild(list);
+      summary.innerHTML = `<div class="cart-total">Total: $<strong>${fmt(total)}</strong></div>`;
+
+      // Update header cart count if present
+      const countEl = document.getElementById('cart-count');
+      if (countEl){
+        const count = Object.values(cart).reduce((s,v)=>s+v,0);
+        countEl.textContent = count;
+      }
+    }
+
+    function clearCart(){
+      saveCart({});
+      renderCart();
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.getElementById('clear-cart-page').addEventListener('click', ()=>{
+        clearCart();
+      });
+      renderCart();
+
+      // Optional: keep existing cart modal behaviour consistent
+      const cartBtn = document.getElementById('cart-btn');
+      const cartModal = document.getElementById('cart-modal');
+      const closeCart = document.getElementById('close-cart');
+      if (cartBtn && cartModal){
+        cartBtn.addEventListener('click', ()=>cartModal.classList.remove('hidden'));
+      }
+      if (closeCart && cartModal){
+        closeCart.addEventListener('click', ()=>cartModal.classList.add('hidden'));
+      }
+      const checkoutBtn = document.getElementById('checkout-btn');
+      if (checkoutBtn && cartModal){
+        checkoutBtn.addEventListener('click', ()=>{ cartModal.classList.add('hidden'); window.location.href='checkout.html'; });
+      }
+    });
+  </script>
+</body>
+</html>
+

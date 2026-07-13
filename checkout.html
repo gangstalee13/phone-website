@@ -1,0 +1,285 @@
+<html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — iPhone Shop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><h1>iPhone Shop</h1></a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="cart-btn" class="button button-primary">Cart (<span id="cart-count">0</span>)</button>
+        <a href="cart.html" class="button button-secondary">Cart Page</a>
+        <a href="checkout.html" class="button button-primary">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding:2rem 1rem;max-width:960px;">
+    <div class="section-heading">
+      <h2>Your Cart &amp; Checkout</h2>
+      <p>Review items, choose payment method (Ecocash or Bank Transfer), and place your order.</p>
+    </div>
+
+    <section id="cart-view">
+      <div id="cart-items"></div>
+      <div id="cart-summary" style="margin-top:1rem"></div>
+    </section>
+
+    <section id="payment-section" style="margin-top:2rem;">
+      <h3>Payment</h3>
+      <form id="payment-form">
+        <label style="display:block;margin-bottom:0.5rem">Full name<input name="name" required /></label>
+        <label style="display:block;margin-bottom:0.5rem">Email<input name="email" type="email" required /></label>
+        <label style="display:block;margin-bottom:0.5rem">Order type
+          <select id="order-type" name="orderType">
+            <option value="full">Full payment</option>
+            <option value="deposit">Pre-order deposit (75%)</option>
+          </select>
+        </label>
+        <div id="order-amount-summary" style="margin-bottom:0.75rem;color:#cbd5e1;font-size:0.95rem"></div>
+        <label style="display:block;margin-bottom:0.5rem">Payment method
+          <select id="payment-method" name="method">
+            <option value="ecocash">Ecocash (mobile money)</option>
+            <option value="bank">Bank Transfer</option>
+          </select>
+        </label>
+
+        <div id="ecocash-fields" style="margin-top:0.5rem">
+          <label>Phone (Ecocash number)<input name="ecocash_phone" placeholder="+2637XXXXXXXX" /></label>
+        </div>
+
+        <div id="bank-fields" style="display:none;margin-top:0.5rem">
+          <label>Bank name<input name="bank_name" placeholder="Bank name" /></label>
+          <label>Account name<input name="bank_account_name" placeholder="Account holder" /></label>
+          <label>Account number<input name="bank_account_number" placeholder="Account number" /></label>
+        </div>
+
+        <div style="margin-top:1rem">
+          <button type="submit" class="button button-primary">Place Order</button>
+        </div>
+      </form>
+
+      <div id="payment-result" style="margin-top:1rem"></div>
+    </section>
+  </main>
+
+  <div id="cart-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Your Cart</h2>
+      <div id="cart-modal-items"></div>
+      <div class="cart-total">Total: $<span id="cart-modal-total">0.00</span></div>
+      <button id="close-cart" class="button button-secondary">Close</button>
+    </div>
+  </div>
+
+  <script>
+  // Read cart from localStorage and render with thumbnails and controls
+  function fmt(n){return Number(n).toFixed(2)}
+  function getCart(){return JSON.parse(localStorage.getItem('cart')||'{}')}
+  function saveCart(cart){ localStorage.setItem('cart', JSON.stringify(cart)); }
+  function updateCartCount(){ const countEl = document.getElementById('cart-count'); if(!countEl) return; const cart = getCart(); countEl.textContent = Object.values(cart).reduce((s,v)=>s+v,0); }
+
+  async function renderCart(){
+    const products = await fetch('products.json').then(r=>r.ok? r.json(): [] ).catch(()=>[]);
+    const cart = getCart();
+    const container = document.getElementById('cart-items');
+    const summary = document.getElementById('cart-summary');
+    container.innerHTML = '';
+    let total = 0;
+    if (!Object.keys(cart).length){ container.innerHTML = '<p>Your cart is empty.</p>'; summary.innerHTML=''; updateCartCount(); return }
+
+    const list = document.createElement('div');
+    list.style.display='grid'; list.style.gap='0.6rem';
+
+    for(const id of Object.keys(cart)){
+      const qty = cart[id];
+      const p = products.find(x=>x.id===id) || {name:id,price:0,image:''};
+      total += (p.price||0)*qty;
+
+      const row = document.createElement('div');
+      row.style.display='flex'; row.style.alignItems='center'; row.style.gap='0.75rem'; row.style.padding='0.6rem 0';
+
+      const thumb = document.createElement('div');
+      thumb.style.width='64px'; thumb.style.height='64px'; thumb.style.flex='0 0 64px'; thumb.style.borderRadius='8px'; thumb.style.overflow='hidden';
+      thumb.style.backgroundColor='rgba(255,255,255,0.03)';
+      if (p.image){ thumb.style.backgroundImage = `url('${p.image}')`; thumb.style.backgroundSize='cover'; thumb.style.backgroundPosition='center'; }
+
+      const info = document.createElement('div');
+      info.style.flex='1';
+      info.innerHTML = `<div style="font-weight:700">${p.name}</div><div style="color:#cbd5e1">${p.desc || ''}</div>`;
+
+      const controls = document.createElement('div');
+      controls.style.display='flex'; controls.style.alignItems='center'; controls.style.gap='0.5rem';
+
+      const qtyBox = document.createElement('input');
+      qtyBox.type='number'; qtyBox.min=1; qtyBox.value = qty; qtyBox.style.width='64px'; qtyBox.addEventListener('change', (e)=>{
+        const v = Math.max(1, parseInt(e.target.value)||1);
+        const current = getCart(); current[id] = v; saveCart(current); renderCart();
+      });
+
+      const removeBtn = document.createElement('button');
+      removeBtn.className='button button-sm'; removeBtn.textContent='Remove';
+      removeBtn.addEventListener('click', ()=>{
+        const current = getCart(); delete current[id]; saveCart(current); renderCart();
+      });
+
+      const price = document.createElement('div');
+      price.style.minWidth='110px'; price.style.textAlign='right'; price.innerHTML = `$${fmt((p.price||0)*qty)}`;
+
+      controls.appendChild(qtyBox);
+      controls.appendChild(removeBtn);
+
+      row.appendChild(thumb);
+      row.appendChild(info);
+      row.appendChild(controls);
+      row.appendChild(price);
+
+      list.appendChild(row);
+    }
+
+    container.appendChild(list);
+    summary.innerHTML = `<div class="cart-total">Total: $<strong>${fmt(total)}</strong></div>`;
+    updateCartCount();
+  }
+
+  async function renderCartModal(){
+    const products = await fetch('products.json').then(r=>r.ok? r.json(): [] ).catch(()=>[]);
+    const cart = getCart();
+    const container = document.getElementById('cart-modal-items');
+    const totalEl = document.getElementById('cart-modal-total');
+    container.innerHTML = '';
+    let total = 0;
+    if (!Object.keys(cart).length){ container.innerHTML = '<p>Your cart is empty.</p>'; totalEl.textContent='0.00'; return }
+    const list = document.createElement('div');
+    list.style.display='grid'; list.style.gap='0.6rem';
+    for(const id of Object.keys(cart)){
+      const qty = cart[id];
+      const p = products.find(x=>x.id===id) || {name:id,price:0};
+      total += (p.price||0)*qty;
+      const item = document.createElement('div');
+      item.style.display='flex'; item.style.justifyContent='space-between'; item.style.alignItems='center'; item.style.padding='0.55rem 0';
+      item.innerHTML = `<span>${p.name} × ${qty}</span><span>$${fmt((p.price||0)*qty)}</span>`;
+      list.appendChild(item);
+    }
+    container.appendChild(list);
+    totalEl.textContent = fmt(total);
+  }
+
+  function computeCartTotal(products, cart){
+    return Object.entries(cart).reduce((sum,[id,qty])=>{
+      const baseId = String(id).split('::')[0];
+      const p = products.find(x=>x.id===baseId) || {price:0};
+      return sum + (p.price||0) * qty;
+    },0);
+  }
+
+  function updateCartSummary(total){
+    const orderType = document.getElementById('order-type');
+    const summary = document.getElementById('cart-summary');
+    if (!summary) return;
+    const type = orderType ? orderType.value : 'full';
+    if (type === 'deposit'){
+      const deposit = total * 0.75;
+      summary.innerHTML = `<div class="cart-total">Total: $<strong>${fmt(total)}</strong><br/>Pre-order deposit due: $<strong>${fmt(deposit)}</strong></div>`;
+      const amountSummary = document.getElementById('order-amount-summary');
+      if (amountSummary) amountSummary.textContent = `Pre-order deposit due today: $${fmt(deposit)} (75% of total). Remaining $${fmt(total - deposit)} due on delivery.`;
+    } else {
+      summary.innerHTML = `<div class="cart-total">Total: $<strong>${fmt(total)}</strong></div>`;
+      const amountSummary = document.getElementById('order-amount-summary');
+      if (amountSummary) amountSummary.textContent = `Full payment due now: $${fmt(total)}.`;
+    }
+  }
+
+  // NOTE: renderCart() is defined earlier in this file (with color + desc).
+  // Keeping only one definition prevents duplicate-function confusion.
+
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    renderCart();
+    updateCartCount();
+
+    const method = document.getElementById('payment-method');
+    const orderType = document.getElementById('order-type');
+    const eco = document.getElementById('ecocash-fields');
+    const bank = document.getElementById('bank-fields');
+
+    function refreshSummary(){
+      const products = await fetch('products.json').then(r=>r.ok? r.json(): [] ).catch(()=>[]);
+      const total = computeCartTotal(products, getCart());
+      updateCartSummary(total);
+    }
+
+    method.addEventListener('change',()=>{
+      if (method.value==='ecocash'){ eco.style.display='block'; bank.style.display='none' }
+      else { eco.style.display='none'; bank.style.display='block' }
+    });
+
+    orderType.addEventListener('change', ()=>{
+      renderCart();
+    });
+
+    document.getElementById('payment-form').addEventListener('submit',async (e)=>{
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const name = f.get('name');
+      const email = f.get('email');
+      const methodVal = f.get('method');
+      const orderTypeVal = f.get('orderType');
+      const cartObj = getCart();
+      const products = await fetch('products.json').then(r=>r.ok? r.json(): [] ).catch(()=>[]);
+      const total = computeCartTotal(products, cartObj);
+      if (!Object.keys(cartObj).length){ alert('Cart is empty'); return }
+      // basic validation
+      if (!name || !email){ alert('Name and email required'); return }
+      if (methodVal==='ecocash'){
+        const phone = f.get('ecocash_phone');
+        if (!phone){ alert('Enter Ecocash phone number'); return }
+        const amount = orderTypeVal === 'deposit' ? total * 0.75 : total;
+        const ref = 'ECO' + Date.now();
+        const order = {id:ref, created:Date.now(), name,email, method:'ecocash', phone, orderType:orderTypeVal, amountDue: amount, total, cart:cartObj};
+        const orders = JSON.parse(localStorage.getItem('orders')||'[]'); orders.push(order); localStorage.setItem('orders',JSON.stringify(orders));
+        localStorage.removeItem('cart');
+        document.getElementById('payment-result').innerHTML = `<div class="feature-card">Payment simulated. Ecocash ref: <strong>${ref}</strong>. ${orderTypeVal === 'deposit' ? `Deposit paid: $${fmt(amount)}. Remaining $${fmt(total-amount)} due at delivery.` : `Paid in full: $${fmt(amount)}.`}</div>`;
+        renderCart();
+        return;
+      }
+      if (methodVal==='bank'){
+        const bankName = f.get('bank_name');
+        const accName = f.get('bank_account_name');
+        const accNum = f.get('bank_account_number');
+        if (!bankName || !accName || !accNum){ alert('Complete bank details'); return }
+        const amount = orderTypeVal === 'deposit' ? total * 0.75 : total;
+        const ref = 'BANK' + Date.now();
+        const order = {id:ref, created:Date.now(), name,email, method:'bank', bankName, accName, accNum, orderType:orderTypeVal, amountDue: amount, total, cart:cartObj};
+        const orders = JSON.parse(localStorage.getItem('orders')||'[]'); orders.push(order); localStorage.setItem('orders',JSON.stringify(orders));
+        localStorage.removeItem('cart');
+        document.getElementById('payment-result').innerHTML = `<div class="feature-card">Bank transfer recorded. Reference: <strong>${ref}</strong>. ${orderTypeVal === 'deposit' ? `Deposit paid: $${fmt(amount)}. Remaining $${fmt(total-amount)} due at delivery.` : `Paid in full: $${fmt(amount)}.`}</div>`;
+        renderCart();
+        return;
+      }
+    });
+
+    const cartBtn = document.getElementById('cart-btn');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCart = document.getElementById('close-cart');
+    if (cartBtn){
+      cartBtn.addEventListener('click', async ()=>{
+        await renderCartModal();
+        if (cartModal){ cartModal.classList.remove('hidden') }
+      });
+    }
+    if (closeCart){ closeCart.addEventListener('click', ()=>cartModal.classList.add('hidden')) }
+  });
+  </script>
+</body>
+</html>

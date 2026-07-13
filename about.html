@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — iPhone Shop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><h1>iPhone Shop</h1></a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="cart-btn" class="button button-primary">Cart (<span id="cart-count">0</span>)</button>
+        <a href="checkout.html" class="button button-primary">Checkout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="hero-copy">
+        <h2>About iPhone Shop</h2>
+        <p>We curate the latest iPhone models and help you explore features with immersive visuals.</p>
+      </div>
+    </section>
+
+    <section class="section about-section">
+      <div class="container section-heading">
+        <p class="eyebrow">Our Brand</p>
+        <h2>From the United States to Your Doorstep in Zimbabwe</h2>
+        <p>We founded our business to give Zimbabwean consumers access to premium, authentic mobile technology without the inflated local price tags or the risks of buying unverified used devices.</p>
+      </div>
+
+      <div class="container feature-grid about-grid">
+        <div class="feature-card">
+          <h3>Clean Devices, Verified Supply</h3>
+          <p>Every iPhone is sourced directly from <strong>major carrier auctions and certified tech suppliers in the United States</strong>, then tested before it leaves the US to ensure clean IMEI and never-locally-repaired condition.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Secure Logistics Pipeline</h3>
+          <p>Devices are air-freighted to Zimbabwe, cleared through customs, and processed at our Masvingo headquarters for final inspection, packaging, and dispatch.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Nationwide Reach</h3>
+          <p>Operating from Masvingo, we deliver to Harare, Bulawayo, Gweru, Mutare, Victoria Falls, and beyond through trusted local courier partners.</p>
+        </div>
+      </div>
+
+      <div class="container section-heading">
+        <h2>Our Realistic Goals for 2027 &amp; Beyond</h2>
+      </div>
+
+      <div class="container feature-grid about-grid">
+        <div class="feature-card">
+          <h3>48-Hour Nationwide Delivery</h3>
+          <p>Our central Masvingo location helps optimize transit routes so stock items can reach customers in under 48 hours.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Transparent Pre-Order Fulfillment</h3>
+          <p>Custom model or out-of-stock orders are streamlined through air-freight for delivery in 5 to 7 days.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Local Collection Points</h3>
+          <p>We plan secure collection and drop-off depots in Harare and Bulawayo for warranty visits, pickups, and trade-ins.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Eco-Friendly Packaging</h3>
+          <p>We aim to move to biodegradable locally manufactured packaging within the next year, reducing our footprint and supporting Zimbabwean printers.</p>
+        </div>
+      </div>
+
+      <div class="container about-warranty-card">
+        <div class="feature-card">
+          <h3>🛡️ The Local Warranty Promise</h3>
+          <p>Although your device comes from the US, your warranty and support are handled locally by our team in Masvingo. If you need help, we are available by phone or WhatsApp.</p>
+          <p>Thank you for supporting a growing Zimbabwean business and trusting us with your next upgrade.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="cart-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Your Cart</h2>
+      <ul id="cart-list"></ul>
+      <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+      <button id="checkout-btn">Checkout</button>
+      <button id="close-cart">Close</button>
+    </div>
+  </div>
+
+  <div id="checkout-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Checkout</h2>
+      <form id="checkout-form">
+        <label>Name<input name="name" required /></label>
+        <label>Address<input name="address" required /></label>
+        <label>Email<input name="email" type="email" required /></label>
+        <button type="submit">Place Order (demo)</button>
+      </form>
+      <button id="close-checkout">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
