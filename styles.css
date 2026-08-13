@@ -917,14 +917,14 @@ select option {
 }
 
 .product-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 /* Styles for products rendered by script.js */
 .products-grid {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .product {
@@ -933,7 +933,7 @@ select option {
   overflow: hidden;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  min-height: 420px;
+  min-height: 520px;
   display: grid;
   grid-template-rows: auto 1fr;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -949,8 +949,9 @@ select option {
   position: relative;
   overflow: hidden;
   width: 100%;
-  min-height: 280px;
-  background: rgba(255,255,255,0.04);
+  min-height: 400px;
+  padding: 1.5rem;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.07), transparent 60%), rgba(255,255,255,0.04);
 }
 
 .product .product-img {
@@ -1253,5 +1254,18 @@ select option {
   .product-card,
   .stat-card {
     padding: 1.5rem;
+  }
+
+  .products-grid,
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product {
+    min-height: 480px;
+  }
+
+  .product .product-bg {
+    min-height: 340px;
   }
 }
