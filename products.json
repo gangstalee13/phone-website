@@ -18,7 +18,6 @@
   {"id":"iphone-16-pro","name":"iPhone 16 Pro","price":780,"desc":"6.1-inch display, A18 Bionic, Pro camera","image":"images/16 pro.png","colors":[{"name":"Black","hex":"#0B1220"},{"name":"Silver","hex":"#F3F4F6"},{"name":"Blue","hex":"#6EA8FF"}]},
   {"id":"iphone-16-pro-max","name":"iPhone 16 Pro Max","price":850,"desc":"6.9-inch display, A18 Bionic, Pro Max camera","image":"images/16 promax.png","colors":[{"name":"Black","hex":"#0B1220"},{"name":"Silver","hex":"#F3F4F6"}]},
   {"id":"iphone-17","name":"iPhone 17","price":830,"desc":"6.1-inch display, A19 Bionic","image":"images/17.png"},
-  {"id":"iphone-17-plus","name":"iPhone 17 Plus","price":930,"desc":"6.7-inch display, A19 Bionic","image":"images/17.png"},
   {"id":"iphone-17-pro","name":"iPhone 17 Pro","price":980,"desc":"6.1-inch display, A19 Bionic, Pro camera","image":"images/17.png"},
   {"id":"iphone-17-pro-max","name":"iPhone 17 Pro Max","price":1300,"desc":"6.9-inch display, A19 Bionic, Pro Max","image":"images/17.png"},
   {"id":"camera-lens-kit","name":"Pro Camera Lens Kit","price":5,"desc":"Attachable wide-angle and macro lenses for sharper photos.","image":"images/camera lenses.jpeg"},
