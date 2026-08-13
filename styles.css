@@ -79,8 +79,19 @@ a.button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.64);
+  background: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(8px);
   padding: 1rem;
+  z-index: 1000;
+}
+
+/* Applied to <html> (and mirrored on <body>) while any modal is open, so
+   the page underneath can't scroll and reveal itself around/behind the
+   modal — this is what was causing other product cards to show through. */
+html.modal-open,
+body.modal-open {
+  overflow: hidden;
+  height: 100%;
 }
 
 .modal-content {

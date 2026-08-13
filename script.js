@@ -182,6 +182,22 @@ let viewerRotation = 0;
 let viewerSpinInterval = null;
 let viewerDrag = {active:false,startX:0,startRotation:0};
 
+// Keeps the page behind a modal from scrolling while it's open — without
+// this, scrolling the background was visible/interactive around and behind
+// the modal instead of being fully hidden by it.
+function lockBodyScroll(){
+  document.documentElement.classList.add('modal-open');
+  document.body.classList.add('modal-open');
+}
+
+function unlockBodyScroll(){
+  // Only unlock once no modal is left open, in case more than one exists.
+  const anyOpen = Array.from(document.querySelectorAll('.modal')).some(m => !m.classList.contains('hidden'));
+  if (anyOpen) return;
+  document.documentElement.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
+}
+
 function openProductViewer(product){
   if(!product) return;
   document.getElementById('viewer-title').textContent = product.name;
@@ -199,11 +215,13 @@ function openProductViewer(product){
   const rotateBtn = document.getElementById('rotate-button');
   if (rotateBtn) rotateBtn.textContent = 'Rotate 360°';
   document.getElementById('viewer-modal').classList.remove('hidden');
+  lockBodyScroll();
 }
 
 function closeProductViewer(){
   document.getElementById('viewer-modal').classList.add('hidden');
   stopViewerSpin();
+  unlockBodyScroll();
 }
 
 function updateViewerRotation(){
@@ -389,16 +407,17 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (productsEl) productsEl.scrollIntoView({behavior:'smooth'});
   });
 
-  if (cartBtn && cartModal) cartBtn.addEventListener('click',()=>cartModal.classList.remove('hidden'));
+  if (cartBtn && cartModal) cartBtn.addEventListener('click',()=>{ cartModal.classList.remove('hidden'); lockBodyScroll(); });
 
   const clearCartBtn = document.getElementById('clear-cart-btn');
   if (clearCartBtn){
     clearCartBtn.addEventListener('click', ()=>{
       clearCart();
       cartModal && cartModal.classList.add('hidden');
+      unlockBodyScroll();
     });
   }
-  if (closeCart && cartModal) closeCart.addEventListener('click',()=>cartModal.classList.add('hidden'));
+  if (closeCart && cartModal) closeCart.addEventListener('click',()=>{ cartModal.classList.add('hidden'); unlockBodyScroll(); });
 
   const closeViewerBtn = document.getElementById('close-viewer');
   const rotateBtn = document.getElementById('rotate-button');

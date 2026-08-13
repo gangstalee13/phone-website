@@ -1,8 +1,19 @@
 {
-  "name": "phone-website",
+  "name": "iphone-shop-server",
   "version": "1.0.0",
   "private": true,
+  "description": "iPhone Shop storefront + backend: Paynow EcoCash checkout and KYC collection",
+  "main": "server.js",
   "scripts": {
-    "start": "npx serve ."
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-basic-auth": "^1.2.1",
+    "multer": "^2.0.0",
+    "nanoid": "^3.3.7",
+    "paynow": "^1.1.10"
   }
 }

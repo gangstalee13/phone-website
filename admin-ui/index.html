@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>iPhone Shop — Admin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  body { font-family: system-ui, sans-serif; background:#0f172a; color:#e2e8f0; margin:0; padding:2rem; }
+  h1 { margin-top:0; }
+  table { width:100%; border-collapse: collapse; margin-top:1rem; }
+  th, td { text-align:left; padding:0.6rem 0.7rem; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.92rem; vertical-align: top; }
+  th { color:#94a3b8; font-weight:600; text-transform:uppercase; font-size:0.72rem; letter-spacing:0.04em; }
+  .badge { padding:0.15rem 0.5rem; border-radius:999px; font-size:0.75rem; font-weight:600; }
+  .badge-paid { background:rgba(74,222,128,0.15); color:#4ade80; }
+  .badge-pending, .badge-awaiting-manual { background:rgba(250,204,21,0.15); color:#facc15; }
+  .badge-cancelled, .badge-failed { background:rgba(248,113,113,0.15); color:#f87171; }
+  .badge-submitted { background:rgba(148,163,184,0.15); color:#cbd5e1; }
+  .badge-verified { background:rgba(74,222,128,0.15); color:#4ade80; }
+  .badge-rejected { background:rgba(248,113,113,0.15); color:#f87171; }
+  button { background:#0ea5e9; color:#fff; border:none; border-radius:0.5rem; padding:0.35rem 0.7rem; font-size:0.8rem; cursor:pointer; margin-right:0.35rem; }
+  button.reject { background:#475569; }
+  a.doc-link { color:#7dd3fc; }
+  #empty { color:#94a3b8; margin-top:1rem; }
+</style>
+</head>
+<body>
+  <h1>Orders &amp; KYC review</h1>
+  <p style="color:#94a3b8;">Refresh the page to see new orders. Click a document link to view the customer's uploaded ID.</p>
+  <table id="orders-table">
+    <thead>
+      <tr>
+        <th>Order</th>
+        <th>Customer</th>
+        <th>Amount due</th>
+        <th>Payment</th>
+        <th>KYC</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div id="empty" style="display:none;">No orders yet.</div>
+
+  <script>
+    function fmt(n){ return Number(n||0).toFixed(2); }
+    function badge(text, cls){ return `<span class="badge badge-${cls}">${text}</span>`; }
+
+    async function reviewKyc(id, status){
+      await fetch(`/api/admin/orders/${id}/kyc-review`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({status})
+      });
+      load();
+    }
+    window.reviewKyc = reviewKyc;
+
+    async function load(){
+      const res = await fetch('/api/admin/orders');
+      const orders = await res.json();
+      const tbody = document.querySelector('#orders-table tbody');
+      const empty = document.getElementById('empty');
+      tbody.innerHTML = '';
+      if (!orders.length){ empty.style.display='block'; return; }
+      empty.style.display='none';
+
+      for (const o of orders){
+        const tr = document.createElement('tr');
+        const kycStatus = o.kyc ? o.kyc.status : 'none';
+        tr.innerHTML = `
+          <td><strong>${o.id}</strong><br/><span style="color:#94a3b8;">${new Date(o.created).toLocaleString()}</span></td>
+          <td>${o.name}<br/><span style="color:#94a3b8;">${o.email}</span></td>
+          <td>$${fmt(o.amountDue)} <span style="color:#64748b;">/ $${fmt(o.total)} total</span></td>
+          <td>${badge(o.paymentStatus, o.paymentStatus)}<br/><span style="color:#94a3b8;">${o.method}${o.orderType==='deposit' ? ' · deposit' : ''}</span></td>
+          <td>
+            ${o.kyc ? `ID: ${o.kyc.idNumber}<br/>${badge(kycStatus, kycStatus)}<br/>${o.kyc.hasDocument ? `<a class="doc-link" href="/api/admin/orders/${o.id}/kyc-document" target="_blank" rel="noopener">View document</a>` : ''}` : '—'}
+          </td>
+          <td>
+            ${o.kyc && o.kyc.status === 'submitted' ? `
+              <button onclick="reviewKyc('${o.id}','verified')">Verify</button>
+              <button class="reject" onclick="reviewKyc('${o.id}','rejected')">Reject</button>
+            ` : ''}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>

@@ -211,10 +211,18 @@
       const cartModal = document.getElementById('cart-modal');
       const closeCart = document.getElementById('close-cart');
       if (cartBtn && cartModal){
-        cartBtn.addEventListener('click', ()=>cartModal.classList.remove('hidden'));
+        cartBtn.addEventListener('click', ()=>{
+          cartModal.classList.remove('hidden');
+          document.documentElement.classList.add('modal-open');
+          document.body.classList.add('modal-open');
+        });
       }
       if (closeCart && cartModal){
-        closeCart.addEventListener('click', ()=>cartModal.classList.add('hidden'));
+        closeCart.addEventListener('click', ()=>{
+          cartModal.classList.add('hidden');
+          document.documentElement.classList.remove('modal-open');
+          document.body.classList.remove('modal-open');
+        });
       }
       const checkoutBtn = document.getElementById('checkout-btn');
       if (checkoutBtn && cartModal){
