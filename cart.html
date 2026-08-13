@@ -4,12 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cart — iPhone Shop</title>
+  <meta name="description" content="Review your iPhone Shop cart, update quantities, and proceed to checkout." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230ea5e9'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='white' text-anchor='middle'%3EiS%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="logo">iPhone Store</a>
+      <a href="index.html" class="logo">iPhone Shop</a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
         <a href="products.html" class="nav-link">Products</a>
@@ -25,7 +27,7 @@
 
   <main class="container" style="padding:2rem 1rem;max-width:960px;">
     <div class="section-heading">
-      <h2>Your Cart</h2>
+      <h1>Your Cart</h1>
       <p>Review items and update quantities before checkout.</p>
     </div>
 
@@ -45,13 +47,25 @@
     </section>
   </main>
 
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <p class="footer-note" style="margin-top:0;">© 2026 iPhone Shop. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="returns.html">Returns &amp; Refunds</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
   <div id="cart-modal" class="modal hidden">
     <div class="modal-content">
       <h2>Your Cart</h2>
       <ul id="cart-list"></ul>
       <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
-      <button id="checkout-btn">Checkout</button>
-      <button id="close-cart">Close</button>
+      <a id="checkout-btn" href="checkout.html" class="button button-primary">Checkout</a>
+      <button id="close-cart" class="button button-secondary">Close</button>
     </div>
   </div>
 

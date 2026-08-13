@@ -392,6 +392,7 @@ select option {
   max-width: 52rem;
 }
 
+.page-hero h1,
 .page-hero h2 {
   margin: 0 0 1rem;
   font-size: clamp(2.4rem, 4vw, 3.5rem);
@@ -891,6 +892,7 @@ select option {
   margin-bottom: 2.5rem;
 }
 
+.section-heading h1,
 .section-heading h2 {
   margin: 0.5rem 0 0;
   font-size: clamp(2rem, 3vw, 3rem);
@@ -1231,6 +1233,23 @@ select option {
   margin-top: 2rem;
   color: #94a3b8;
   font-size: 0.95rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: white;
 }
 
 @media (max-width: 860px) {

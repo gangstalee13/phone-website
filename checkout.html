@@ -4,13 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkout — iPhone Shop</title>
+  <meta name="description" content="Complete your iPhone order securely via Ecocash or bank transfer, pay in full or with a 75% pre-order deposit." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230ea5e9'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='white' text-anchor='middle'%3EiS%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="checkout.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html"><h1>iPhone Shop</h1></a>
+      <a href="index.html" class="logo">iPhone Shop</a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
         <a href="products.html" class="nav-link">Products</a>
@@ -27,7 +29,7 @@
 
   <main class="container checkout-main">
     <div class="section-heading">
-      <h2>Your Cart &amp; Checkout</h2>
+      <h1>Your Cart &amp; Checkout</h1>
       <p>Review items, choose payment method (Ecocash or Bank Transfer), and place your order.</p>
     </div>
 
@@ -78,6 +80,18 @@
       </section>
     </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <p class="footer-note" style="margin-top:0;">© 2026 iPhone Shop. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="returns.html">Returns &amp; Refunds</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
 
   <div id="cart-modal" class="modal hidden">
     <div class="modal-content">
@@ -233,6 +247,23 @@
       refreshSummary();
     });
 
+    function showPaymentError(msg){
+      document.getElementById('payment-result').innerHTML = `<div class="payment-error">${msg}</div>`;
+    }
+
+    function buildWhatsAppOrderLink(order){
+      const lines = [
+        `New order: ${order.id}`,
+        `Name: ${order.name}`,
+        `Email: ${order.email}`,
+        `Payment method: ${order.method === 'ecocash' ? `Ecocash (${order.phone})` : `Bank transfer (${order.bankName}, ${order.accName})`}`,
+        `Order type: ${order.orderType === 'deposit' ? 'Pre-order deposit' : 'Full payment'}`,
+        `Amount paid now: $${fmt(order.amountDue)}`,
+        `Order total: $${fmt(order.total)}`
+      ];
+      return `https://wa.me/263785233384?text=${encodeURIComponent(lines.join('\n'))}`;
+    }
+
     document.getElementById('payment-form').addEventListener('submit',async (e)=>{
       e.preventDefault();
       const f = new FormData(e.target);
@@ -243,18 +274,18 @@
       const cartObj = getCart();
       const products = await fetch('products.json').then(r=>r.ok? r.json(): [] ).catch(()=>[]);
       const total = computeCartTotal(products, cartObj);
-      if (!Object.keys(cartObj).length){ alert('Cart is empty'); return }
+      if (!Object.keys(cartObj).length){ showPaymentError('Your cart is empty — add an item before checking out.'); return }
       // basic validation
-      if (!name || !email){ alert('Name and email required'); return }
+      if (!name || !email){ showPaymentError('Please enter your name and email.'); return }
       if (methodVal==='ecocash'){
         const phone = f.get('ecocash_phone');
-        if (!phone){ alert('Enter Ecocash phone number'); return }
+        if (!phone){ showPaymentError('Please enter your Ecocash phone number.'); return }
         const amount = orderTypeVal === 'deposit' ? total * 0.75 : total;
         const ref = 'ECO' + Date.now();
         const order = {id:ref, created:Date.now(), name,email, method:'ecocash', phone, orderType:orderTypeVal, amountDue: amount, total, cart:cartObj};
         const orders = JSON.parse(localStorage.getItem('orders')||'[]'); orders.push(order); localStorage.setItem('orders',JSON.stringify(orders));
         localStorage.removeItem('cart');
-        document.getElementById('payment-result').innerHTML = `<div class="feature-card">Payment simulated. Ecocash ref: <strong>${ref}</strong>. ${orderTypeVal === 'deposit' ? `Deposit paid: $${fmt(amount)}. Remaining $${fmt(total-amount)} due at delivery.` : `Paid in full: $${fmt(amount)}.`}</div>`;
+        document.getElementById('payment-result').innerHTML = `<div class="feature-card">Payment simulated. Ecocash ref: <strong>${ref}</strong>. ${orderTypeVal === 'deposit' ? `Deposit paid: $${fmt(amount)}. Remaining $${fmt(total-amount)} due at delivery.` : `Paid in full: $${fmt(amount)}.`}<br/><a class="button button-primary whatsapp-followup" href="${buildWhatsAppOrderLink(order)}" target="_blank" rel="noopener noreferrer">Send order confirmation on WhatsApp</a></div>`;
         renderCart();
         return;
       }
@@ -262,13 +293,13 @@
         const bankName = f.get('bank_name');
         const accName = f.get('bank_account_name');
         const accNum = f.get('bank_account_number');
-        if (!bankName || !accName || !accNum){ alert('Complete bank details'); return }
+        if (!bankName || !accName || !accNum){ showPaymentError('Please complete all bank transfer details.'); return }
         const amount = orderTypeVal === 'deposit' ? total * 0.75 : total;
         const ref = 'BANK' + Date.now();
         const order = {id:ref, created:Date.now(), name,email, method:'bank', bankName, accName, accNum, orderType:orderTypeVal, amountDue: amount, total, cart:cartObj};
         const orders = JSON.parse(localStorage.getItem('orders')||'[]'); orders.push(order); localStorage.setItem('orders',JSON.stringify(orders));
         localStorage.removeItem('cart');
-        document.getElementById('payment-result').innerHTML = `<div class="feature-card">Bank transfer recorded. Reference: <strong>${ref}</strong>. ${orderTypeVal === 'deposit' ? `Deposit paid: $${fmt(amount)}. Remaining $${fmt(total-amount)} due at delivery.` : `Paid in full: $${fmt(amount)}.`}</div>`;
+        document.getElementById('payment-result').innerHTML = `<div class="feature-card">Bank transfer recorded. Reference: <strong>${ref}</strong>. ${orderTypeVal === 'deposit' ? `Deposit paid: $${fmt(amount)}. Remaining $${fmt(total-amount)} due at delivery.` : `Paid in full: $${fmt(amount)}.`}<br/><a class="button button-primary whatsapp-followup" href="${buildWhatsAppOrderLink(order)}" target="_blank" rel="noopener noreferrer">Send order confirmation on WhatsApp</a></div>`;
         renderCart();
         return;
       }

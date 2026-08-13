@@ -1,31 +1,30 @@
 const PRODUCTS_URL = 'products.json';
 const INLINE_PRODUCTS = [
   {"id":"iphone-12","name":"iPhone 12","price":230,"desc":"6.1-inch display, A14 Bionic","image":"images/iphone-12.png"},
-  {"id":"iphone-12-pro","name":"iPhone 12 Pro","price":270,"desc":"6.1-inch display, A14 Bionic, Pro camera","image":"images/12 pro.png"},
+  {"id":"iphone-12-pro","name":"iPhone 12 Pro","price":280,"desc":"6.1-inch display, A14 Bionic, Pro camera","image":"images/12 pro.png"},
   {"id":"iphone-12-pro-max","name":"iPhone 12 Pro Max","price":350,"desc":"6.7-inch display, A14 Bionic, Pro Max camera","image":"images/12 promax.png"},
   {"id":"iphone-13","name":"iPhone 13","price":330,"desc":"6.1-inch display, A15 Bionic","image":"images/13.png"},
-  {"id":"iphone-13-pro","name":"iPhone 13 Pro","price":360,"desc":"6.1-inch display, A15 Bionic, Pro camera","image":"images/13 pro.png"},
-  {"id":"iphone-13-pro","name":"iPhone 13 Pro","price":360,"desc":"6.1-inch display, A15 Bionic, Pro camera","image":"images/13 pro.png"},
-  {"id":"iphone-13-pro-max","name":"iPhone 13 Pro Max","price":400,"desc":"6.7-inch display, A15 Bionic, Pro Max camera","image":"images/13 promax.png"},
-  {"id":"iphone-14","name":"iPhone 14","price":380,"desc":"6.1-inch display, A16 Bionic","image":"images/14.png"},
-  {"id":"iphone-14-plus","name":"iPhone 14 Plus","price":420,"desc":"6.7-inch display, A16 Bionic","image":"images/14 plus.png"},
-  {"id":"iphone-14-pro","name":"iPhone 14 Pro","price":460,"desc":"6.1-inch display, A16 Bionic, Pro camera","image":"images/14 pro.png"},
-  {"id":"iphone-14-pro-max","name":"iPhone 14 Pro Max","price":520,"desc":"6.7-inch display, A16 Bionic, Pro Max camera","image":"images/14 promax.png"},
-  {"id":"iphone-15","name":"iPhone 15","price":450,"desc":"6.1-inch display, A17 Bionic","image":"images/15.png"},
+  {"id":"iphone-13-pro","name":"iPhone 13 Pro","price":400,"desc":"6.1-inch display, A15 Bionic, Pro camera","image":"images/13 pro.png"},
+  {"id":"iphone-13-pro-max","name":"iPhone 13 Pro Max","price":450,"desc":"6.7-inch display, A15 Bionic, Pro Max camera","image":"images/13 promax.png"},
+  {"id":"iphone-14","name":"iPhone 14","price":400,"desc":"6.1-inch display, A16 Bionic","image":"images/14.png"},
+  {"id":"iphone-14-plus","name":"iPhone 14 Plus","price":430,"desc":"6.7-inch display, A16 Bionic","image":"images/14 plus.png"},
+  {"id":"iphone-14-pro","name":"iPhone 14 Pro","price":480,"desc":"6.1-inch display, A16 Bionic, Pro camera","image":"images/14 pro.png"},
+  {"id":"iphone-14-pro-max","name":"iPhone 14 Pro Max","price":550,"desc":"6.7-inch display, A16 Bionic, Pro Max camera","image":"images/14 promax.png"},
+  {"id":"iphone-15","name":"iPhone 15","price":475,"desc":"6.1-inch display, A17 Bionic","image":"images/15.png"},
   {"id":"iphone-15-plus","name":"iPhone 15 Plus","price":530,"desc":"6.7-inch display, A17 Bionic","image":"images/15 plus.png"},
-  {"id":"iphone-15-pro","name":"iPhone 15 Pro","price":580,"desc":"6.1-inch display, A17 Bionic, Pro camera","image":"images/15 pro.png"},
-  {"id":"iphone-15-pro-max","name":"iPhone 15 Pro Max","price":680,"desc":"6.7-inch display, A17 Bionic, Pro Max camera","image":"images/15 promax.png"},
+  {"id":"iphone-15-pro","name":"iPhone 15 Pro","price":600,"desc":"6.1-inch display, A17 Bionic, Pro camera","image":"images/15 pro.png"},
+  {"id":"iphone-15-pro-max","name":"iPhone 15 Pro Max","price":700,"desc":"6.7-inch display, A17 Bionic, Pro Max camera","image":"images/15 promax.png"},
   {"id":"iphone-16","name":"iPhone 16","price":660,"desc":"6.1-inch display, A18 Bionic","image":"images/16.png"},
-  {"id":"iphone-16-plus","name":"iPhone 16 Plus","price":1099,"desc":"6.7-inch display, A18 Bionic","image":"images/16 plus.png"},
-  {"id":"iphone-16-pro","name":"iPhone 16 Pro","price":1199,"desc":"6.1-inch display, A18 Bionic, Pro camera","image":"images/16 pro.png"},
-  {"id":"iphone-16-pro-max","name":"iPhone 16 Pro Max","price":1130,"desc":"6.9-inch display, A18 Bionic, Pro Max camera","image":"images/16 promax.png"},
-  {"id":"iphone-17","name":"iPhone 17","price":1099,"desc":"6.1-inch display, A19 Bionic","image":"images/17.png"},
-  {"id":"iphone-17-plus","name":"iPhone 17 Plus","price":1199,"desc":"6.7-inch display, A19 Bionic","image":"images/17.png"},
-  {"id":"iphone-17-pro","name":"iPhone 17 Pro","price":1299,"desc":"6.1-inch display, A19 Bionic, Pro camera","image":"images/17.png"},
-  {"id":"iphone-17-pro-max","name":"iPhone 17 Pro Max","price":1299,"desc":"6.9-inch display, A19 Bionic, Pro Max","image":"images/17.png"},
-  {"id":"camera-lens-kit","name":"Pro Camera Lens Kit","price":89,"desc":"Attachable wide-angle and macro lenses for sharper photos.","image":"images/camera lenses.jpeg"},
-  {"id":"silicone-cover","name":"Silicone Protection Cover","price":29,"desc":"Soft-touch silicone case with raised edges for everyday protection.","image":"images/silicon covers.jpeg"},
-  {"id":"screen-protector","name":"Tempered Glass Protector","price":19,"desc":"Crystal-clear glass screen protector for scratch resistance.","image":"images/backglasses.jpeg"}
+  {"id":"iphone-16-plus","name":"iPhone 16 Plus","price":730,"desc":"6.7-inch display, A18 Bionic","image":"images/16 plus.png"},
+  {"id":"iphone-16-pro","name":"iPhone 16 Pro","price":780,"desc":"6.1-inch display, A18 Bionic, Pro camera","image":"images/16 pro.png"},
+  {"id":"iphone-16-pro-max","name":"iPhone 16 Pro Max","price":850,"desc":"6.9-inch display, A18 Bionic, Pro Max camera","image":"images/16 promax.png"},
+  {"id":"iphone-17","name":"iPhone 17","price":830,"desc":"6.1-inch display, A19 Bionic","image":"images/17.png"},
+  {"id":"iphone-17-plus","name":"iPhone 17 Plus","price":930,"desc":"6.7-inch display, A19 Bionic","image":"images/17.png"},
+  {"id":"iphone-17-pro","name":"iPhone 17 Pro","price":980,"desc":"6.1-inch display, A19 Bionic, Pro camera","image":"images/17.png"},
+  {"id":"iphone-17-pro-max","name":"iPhone 17 Pro Max","price":1300,"desc":"6.9-inch display, A19 Bionic, Pro Max","image":"images/17.png"},
+  {"id":"camera-lens-kit","name":"Pro Camera Lens Kit","price":5,"desc":"Attachable wide-angle and macro lenses for sharper photos.","image":"images/camera lenses.jpeg"},
+  {"id":"silicone-cover","name":"Silicone Protection Cover","price":5,"desc":"Soft-touch silicone case with raised edges for everyday protection.","image":"images/silicon covers.jpeg"},
+  {"id":"screen-protector","name":"Backgalss repair","price":30,"desc":"get your original back galss with skilled techncians.","image":"images/backglasses.jpeg"}
 ];
 let products = [];
 const root = document.documentElement;
@@ -378,9 +377,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   const cartBtn = document.getElementById('cart-btn');
   const cartModal = document.getElementById('cart-modal');
   const closeCart = document.getElementById('close-cart');
-  const checkoutBtn = document.getElementById('checkout-btn');
-  const checkoutModal = document.getElementById('checkout-modal');
-  const closeCheckout = document.getElementById('close-checkout');
 
   // make the phone shell glow for emphasis
   const phoneShell = document.querySelector('.phone-shell');
@@ -403,24 +399,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   }
   if (closeCart && cartModal) closeCart.addEventListener('click',()=>cartModal.classList.add('hidden'));
-  if (checkoutBtn && cartModal && checkoutModal) checkoutBtn.addEventListener('click',()=>{cartModal.classList.add('hidden'); checkoutModal.classList.remove('hidden')});
-  if (closeCheckout && checkoutModal) closeCheckout.addEventListener('click',()=>checkoutModal.classList.add('hidden'));
 
   const closeViewerBtn = document.getElementById('close-viewer');
   const rotateBtn = document.getElementById('rotate-button');
   if (closeViewerBtn) closeViewerBtn.addEventListener('click', closeProductViewer);
   if (rotateBtn) rotateBtn.addEventListener('click', toggleViewerRotation);
   if (document.getElementById('viewer-stage')) initViewerControls();
-
-  const checkoutForm = document.getElementById('checkout-form');
-  if (checkoutForm){
-    checkoutForm.addEventListener('submit',e=>{
-      e.preventDefault();
-      alert('Order placed (demo). Thank you!');
-      cart = {};
-      saveCart();
-      updateCartUI();
-      if (checkoutModal) checkoutModal.classList.add('hidden');
-    });
-  }
 });

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Products — iPhone Shop</title>
-  <meta name="description" content="Browse all available iPhone models from iPhone 12 to iPhone 17 Pro Max, with pricing and accessories, delivered across Zimbabwe." />
+  <title>Terms of Service — iPhone Shop</title>
+  <meta name="description" content="The terms that apply when you order from iPhone Shop, including pricing, pre-order deposits, and payment methods." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230ea5e9'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='white' text-anchor='middle'%3EiS%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -14,7 +14,7 @@
       <a href="index.html" class="logo">iPhone Shop</a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
-        <a href="products.html" class="nav-link active">Products</a>
+        <a href="products.html" class="nav-link">Products</a>
         <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
@@ -28,12 +28,37 @@
   <main>
     <section class="page-hero">
       <div class="hero-copy">
-        <h1>Our Products</h1>
-        <p>All available iPhone models — browse, compare, and add to cart.</p>
+        <h1>Terms of Service</h1>
+        <p>Last updated: August 2026. By ordering from iPhone Shop, you agree to the terms below.</p>
       </div>
     </section>
 
-    <section id="products" class="products-grid"></section>
+    <section class="container" style="padding:0 1rem 4rem;max-width:820px;">
+      <div class="feature-card" style="margin-bottom:1.5rem;">
+        <h3>Pricing &amp; availability</h3>
+        <p>Prices are listed in US Dollars and may change without notice. Stock is not guaranteed until an order is confirmed; if an item becomes unavailable after you order, we'll contact you to offer an alternative or a full refund.</p>
+      </div>
+
+      <div class="feature-card" style="margin-bottom:1.5rem;">
+        <h3>Payment methods</h3>
+        <p>We accept payment by Ecocash (mobile money) or bank transfer. Full payment is required for in-stock items; a 75% deposit is accepted for pre-order items, with the remaining balance due on delivery.</p>
+      </div>
+
+      <div class="feature-card" style="margin-bottom:1.5rem;">
+        <h3>Order confirmation</h3>
+        <p>An order is only confirmed once we have verified receipt of your payment. Placing an order on this website reserves your item but does not guarantee it until payment is verified.</p>
+      </div>
+
+      <div class="feature-card" style="margin-bottom:1.5rem;">
+        <h3>Delivery</h3>
+        <p>In-stock items typically ship within 48 hours to major cities. Pre-order items are delivered within 5–7 days of full payment. Delivery timelines are estimates and may vary due to customs or courier delays outside our control.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Contact</h3>
+        <p>Questions about an order or these terms can be sent through our <a href="contact.html" style="color:#7dd3fc;">Contact page</a>.</p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -48,46 +73,13 @@
     </div>
   </footer>
 
-
   <div id="cart-modal" class="modal hidden">
-
     <div class="modal-content">
       <h2>Your Cart</h2>
       <ul id="cart-list"></ul>
-      <div style="margin:0.75rem 0;display:flex;gap:0.75rem;">
-        <button id="clear-cart-btn" class="button button-secondary" type="button">Clear Cart</button>
-      </div>
       <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
       <a id="checkout-btn" href="checkout.html" class="button button-primary">Checkout</a>
       <button id="close-cart" class="button button-secondary">Close</button>
-    </div>
-  </div>
-
-  <div id="viewer-modal" class="modal hidden">
-    <div class="modal-content viewer-modal-content">
-      <div class="viewer-header">
-        <div>
-          <span class="eyebrow">Product Viewer</span>
-          <h2 id="viewer-title">Product</h2>
-          <p id="viewer-description">Inspect the phone from every angle using drag or rotate controls.</p>
-        </div>
-        <button id="rotate-button" class="button button-sm">Rotate 360°</button>
-      </div>
-      <div id="viewer-stage" class="viewer-stage" aria-label="Interactive product viewer">
-        <div class="viewer-card">
-          <div class="viewer-inner" id="viewer-inner">
-            <img id="viewer-front" class="viewer-face front" src="" alt="Front view" />
-            <img id="viewer-back" class="viewer-face back" src="" alt="Back view" />
-          </div>
-        </div>
-      </div>
-      <div class="viewer-footer">
-        <div class="viewer-meta">
-          <span id="viewer-price"></span>
-          <span class="viewer-hint">Drag the phone image or click Rotate 360°.</span>
-        </div>
-        <button id="close-viewer" class="button button-outline">Close</button>
-      </div>
     </div>
   </div>
 
