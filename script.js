@@ -13,17 +13,16 @@ const INLINE_PRODUCTS = [
   {"id":"iphone-15","name":"iPhone 15","price":475,"desc":"6.1-inch display, A17 Bionic","image":"images/15.png"},
   {"id":"iphone-15-plus","name":"iPhone 15 Plus","price":530,"desc":"6.7-inch display, A17 Bionic","image":"images/15 plus.png"},
   {"id":"iphone-15-pro","name":"iPhone 15 Pro","price":600,"desc":"6.1-inch display, A17 Bionic, Pro camera","image":"images/15 pro.png"},
-  {"id":"iphone-15-pro-max","name":"iPhone 15 Pro Max","price":700,"desc":"6.7-inch display, A17 Bionic, Pro Max camera","image":"images/15 promax.png"},
+  {"id":"iphone-15-pro-max","name":"iPhone 15 Pro Max","price":700,"desc":"6.7-inch display, A17 Bionic, Pro Max camera","image":"images/15-promax.png"},
   {"id":"iphone-16","name":"iPhone 16","price":660,"desc":"6.1-inch display, A18 Bionic","image":"images/16.png"},
-  {"id":"iphone-16-plus","name":"iPhone 16 Plus","price":730,"desc":"6.7-inch display, A18 Bionic","image":"images/16 plus.png"},
-  {"id":"iphone-16-pro","name":"iPhone 16 Pro","price":780,"desc":"6.1-inch display, A18 Bionic, Pro camera","image":"images/16 pro.png"},
-  {"id":"iphone-16-pro-max","name":"iPhone 16 Pro Max","price":850,"desc":"6.9-inch display, A18 Bionic, Pro Max camera","image":"images/16 promax.png"},
+  {"id":"iphone-16-plus","name":"iPhone 16 Plus","price":730,"desc":"6.7-inch display, A18 Bionic","image":"images/16-plus.png"},
+  {"id":"iphone-16-pro","name":"iPhone 16 Pro","price":780,"desc":"6.1-inch display, A18 Bionic, Pro camera","image":"images/16-pro.png"},
+  {"id":"iphone-16-pro-max","name":"iPhone 16 Pro Max","price":850,"desc":"6.9-inch display, A18 Bionic, Pro Max camera","image":"images/16-promax.png"},
   {"id":"iphone-17","name":"iPhone 17","price":830,"desc":"6.1-inch display, A19 Bionic","image":"images/17.png"},
-  {"id":"iphone-17-plus","name":"iPhone 17 Plus","price":930,"desc":"6.7-inch display, A19 Bionic","image":"images/17.png"},
-  {"id":"iphone-17-pro","name":"iPhone 17 Pro","price":980,"desc":"6.1-inch display, A19 Bionic, Pro camera","image":"images/17.png"},
-  {"id":"iphone-17-pro-max","name":"iPhone 17 Pro Max","price":1300,"desc":"6.9-inch display, A19 Bionic, Pro Max","image":"images/17.png"},
-  {"id":"camera-lens-kit","name":"Pro Camera Lens Kit","price":5,"desc":"Attachable wide-angle and macro lenses for sharper photos.","image":"images/camera lenses.jpeg"},
-  {"id":"silicone-cover","name":"Silicone Protection Cover","price":5,"desc":"Soft-touch silicone case with raised edges for everyday protection.","image":"images/silicon covers.jpeg"},
+  {"id":"iphone-17-pro","name":"iPhone 17 Pro","price":980,"desc":"6.1-inch display, A19 Bionic, Pro camera","image":"images/17-pro.png"},
+  {"id":"iphone-17-pro-max","name":"iPhone 17 Pro Max","price":1300,"desc":"6.9-inch display, A19 Bionic, Pro Max","image":"images/17-promax.png"},
+  {"id":"camera-lens-kit","name":"Pro Camera Lens Kit","price":5,"desc":"Attachable wide-angle and macro lenses for sharper photos.","image":"images/camera-lenses.jpeg"},
+  {"id":"silicone-cover","name":"Silicone Protection Cover","price":5,"desc":"Soft-touch silicone case with raised edges for everyday protection.","image":"images/silicon-covers.jpeg"},
   {"id":"screen-protector","name":"Backgalss repair","price":30,"desc":"get your original back galss with skilled techncians.","image":"images/backglasses.jpeg"}
 ];
 let products = [];
@@ -182,22 +181,6 @@ let viewerRotation = 0;
 let viewerSpinInterval = null;
 let viewerDrag = {active:false,startX:0,startRotation:0};
 
-// Keeps the page behind a modal from scrolling while it's open — without
-// this, scrolling the background was visible/interactive around and behind
-// the modal instead of being fully hidden by it.
-function lockBodyScroll(){
-  document.documentElement.classList.add('modal-open');
-  document.body.classList.add('modal-open');
-}
-
-function unlockBodyScroll(){
-  // Only unlock once no modal is left open, in case more than one exists.
-  const anyOpen = Array.from(document.querySelectorAll('.modal')).some(m => !m.classList.contains('hidden'));
-  if (anyOpen) return;
-  document.documentElement.classList.remove('modal-open');
-  document.body.classList.remove('modal-open');
-}
-
 function openProductViewer(product){
   if(!product) return;
   document.getElementById('viewer-title').textContent = product.name;
@@ -215,13 +198,11 @@ function openProductViewer(product){
   const rotateBtn = document.getElementById('rotate-button');
   if (rotateBtn) rotateBtn.textContent = 'Rotate 360°';
   document.getElementById('viewer-modal').classList.remove('hidden');
-  lockBodyScroll();
 }
 
 function closeProductViewer(){
   document.getElementById('viewer-modal').classList.add('hidden');
   stopViewerSpin();
-  unlockBodyScroll();
 }
 
 function updateViewerRotation(){
@@ -407,17 +388,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (productsEl) productsEl.scrollIntoView({behavior:'smooth'});
   });
 
-  if (cartBtn && cartModal) cartBtn.addEventListener('click',()=>{ cartModal.classList.remove('hidden'); lockBodyScroll(); });
+  if (cartBtn && cartModal) cartBtn.addEventListener('click',()=>cartModal.classList.remove('hidden'));
 
   const clearCartBtn = document.getElementById('clear-cart-btn');
   if (clearCartBtn){
     clearCartBtn.addEventListener('click', ()=>{
       clearCart();
       cartModal && cartModal.classList.add('hidden');
-      unlockBodyScroll();
     });
   }
-  if (closeCart && cartModal) closeCart.addEventListener('click',()=>{ cartModal.classList.add('hidden'); unlockBodyScroll(); });
+  if (closeCart && cartModal) closeCart.addEventListener('click',()=>cartModal.classList.add('hidden'));
 
   const closeViewerBtn = document.getElementById('close-viewer');
   const rotateBtn = document.getElementById('rotate-button');
