@@ -293,7 +293,13 @@ function updateCartUI(){
 
   list.innerHTML = '';
   let total = 0;
-  for(const id in cart){
+  const ids = Object.keys(cart);
+  if (!ids.length){
+    list.innerHTML = '<li class="cart-list-empty">Your cart is empty.</li>';
+    totalEl.textContent = '0.00';
+    return;
+  }
+  for(const id of ids){
     const qty = cart[id];
     const parts = id.split('::');
     const baseId = parts[0];
@@ -301,7 +307,17 @@ function updateCartUI(){
     const p = products.find(x=>x.id===baseId) || {name:baseId,price:0};
     total += (p.price||0)*qty;
     const li = document.createElement('li');
-    li.innerHTML = `<span>${p.name}${color? ' ('+color+')':''} × ${qty}</span><span>$${fmt((p.price||0)*qty)}</span>`;
+    li.innerHTML = `<span class="cart-list-item-info">${p.name}${color? ' ('+color+')':''} × ${qty}</span><span class="cart-list-item-price">$${fmt((p.price||0)*qty)}</span>`;
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'cart-list-remove';
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', ()=>{
+      delete cart[id];
+      saveCart();
+      updateCartUI();
+    });
+    li.appendChild(removeBtn);
     list.appendChild(li);
   }
   totalEl.textContent = fmt(total);
@@ -394,7 +410,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   if (clearCartBtn){
     clearCartBtn.addEventListener('click', ()=>{
       clearCart();
-      cartModal && cartModal.classList.add('hidden');
     });
   }
   if (closeCart && cartModal) closeCart.addEventListener('click',()=>cartModal.classList.add('hidden'));

@@ -145,7 +145,7 @@
     "name": "iPhone 15 Pro Max",
     "price": 700,
     "desc": "6.7-inch display, A17 Bionic, Pro Max camera",
-    "image": "images/15 promax.png",
+    "image": "images/15-promax.png",
     "colors": [
       {
         "name": "Black",
@@ -187,7 +187,7 @@
     "name": "iPhone 16 Plus",
     "price": 730,
     "desc": "6.7-inch display, A18 Bionic",
-    "image": "images/16 plus.png",
+    "image": "images/16-plus.png",
     "colors": [
       {
         "name": "Gold",
@@ -204,7 +204,7 @@
     "name": "iPhone 16 Pro",
     "price": 780,
     "desc": "6.1-inch display, A18 Bionic, Pro camera",
-    "image": "images/16 pro.png",
+    "image": "images/16-pro.png",
     "colors": [
       {
         "name": "Black",
@@ -225,7 +225,7 @@
     "name": "iPhone 16 Pro Max",
     "price": 850,
     "desc": "6.9-inch display, A18 Bionic, Pro Max camera",
-    "image": "images/16 promax.png",
+    "image": "images/16-promax.png",
     "colors": [
       {
         "name": "Black",
@@ -244,8 +244,7 @@
     "desc": "6.1-inch display, A19 Bionic",
     "image": "images/17.png"
   },
-  
-{
+  {
     "id": "iphone-17-pro",
     "name": "iPhone 17 Pro",
     "price": 980,
@@ -264,14 +263,14 @@
     "name": "Pro Camera Lens Kit",
     "price": 5,
     "desc": "Attachable wide-angle and macro lenses for sharper photos.",
-    "image": "images/camera lenses.jpeg"
+    "image": "images/camera-lenses.jpeg"
   },
   {
     "id": "silicone-cover",
     "name": "Silicone Protection Cover",
     "price": 5,
     "desc": "Soft-touch silicone case with raised edges for everyday protection.",
-    "image": "images/silicon covers.jpeg"
+    "image": "images/silicon-covers.jpeg"
   },
   {
     "id": "screen-protector",

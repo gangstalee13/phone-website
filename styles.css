@@ -79,19 +79,8 @@ a.button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(2, 6, 23, 0.92);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.64);
   padding: 1rem;
-  z-index: 1000;
-}
-
-/* Applied to <html> (and mirrored on <body>) while any modal is open, so
-   the page underneath can't scroll and reveal itself around/behind the
-   modal — this is what was causing other product cards to show through. */
-html.modal-open,
-body.modal-open {
-  overflow: hidden;
-  height: 100%;
 }
 
 .modal-content {
@@ -113,6 +102,57 @@ body.modal-open {
   margin-top: 1rem;
   text-align: right;
   font-weight: 700;
+}
+
+#cart-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+#cart-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#cart-list .cart-list-item-info {
+  flex: 1;
+  min-width: 0;
+  color: #e2e8f0;
+}
+
+#cart-list .cart-list-item-price {
+  font-weight: 700;
+  color: #f8fafc;
+  white-space: nowrap;
+}
+
+#cart-list .cart-list-remove {
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: #fecaca;
+  border-radius: 0.6rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#cart-list .cart-list-remove:hover {
+  background: rgba(248, 113, 113, 0.22);
+}
+
+#cart-list .cart-list-empty {
+  color: #94a3b8;
+  padding: 0.5rem 0.25rem;
 }
 
 /* ---------------------------------------------------------------
@@ -428,7 +468,6 @@ select option {
   position: relative;
   min-height: 100vh;
   padding: 0;
-  overflow: hidden;
   display: grid;
   place-items: center;
   background: #090b12;
@@ -497,50 +536,6 @@ select option {
   transform-style: preserve-3d;
   transform: translateZ(0) rotateX(var(--hero-rotate-x, 16deg)) rotateY(var(--hero-rotate-y, 18deg)) translateY(var(--hero-translate-y, 0px));
   transition: transform 0.2s ease-out;
-}
-
-.hero-device-frame,
-.hero-device-screen,
-.hero-device-halo {
-  position: absolute;
-  inset: 0;
-  border-radius: 3rem;
-}
-
-.hero-device-frame {
-  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(56, 189, 248, 0.1));
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 36px 90px rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(12px);
-  transform: translateZ(4px);
-}
-
-.hero-device-screen {
-  inset: 1.2rem;
-  background: linear-gradient(180deg, rgba(9, 14, 29, 0.98), rgba(11, 17, 38, 0.97));
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  transform: translateZ(8px);
-}
-
-.hero-device-screen::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--hero-screen-image, url('images/iphone-13.png'));
-  background-size: cover;
-  background-position: center;
-  opacity: 0.98;
-  filter: saturate(1.1) contrast(1.05);
-}
-
-.hero-device-halo {
-  inset: -2rem;
-  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.22), transparent 38%);
-  filter: blur(18px);
-  transform: translateZ(-8px);
 }
 
 .hero-device-frame,
