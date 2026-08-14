@@ -769,6 +769,80 @@ select option {
   .stat-card {
     padding: 1.5rem;
   }
+
+  .hero-stage {
+    padding: 2rem 0 2.5rem;
+  }
+
+  .section {
+    padding: 2.25rem 0;
+  }
+
+  .page-hero {
+    padding: 2rem 1.25rem;
+  }
+
+  /* Compact horizontal product rows on mobile so the image, name,
+     and price are all visible together without scrolling inside
+     each card. */
+  .products-grid,
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: auto;
+    border-radius: 1.25rem;
+  }
+
+  .product .product-bg {
+    flex: 0 0 104px;
+    width: 104px;
+    height: 104px;
+    min-height: 0;
+    padding: 0.4rem;
+    margin: 0.65rem;
+    border-radius: 0.9rem;
+  }
+
+  .product .product-glass {
+    flex: 1;
+    min-width: 0;
+    padding: 0.65rem 0.85rem 0.65rem 0;
+    gap: 0.35rem;
+    background: transparent;
+  }
+
+  .product .product-glass h3 {
+    font-size: 1rem;
+  }
+
+  .product .product-glass p {
+    font-size: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product .price {
+    font-size: 1.05rem;
+  }
+
+  .product .actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .product .actions button {
+    min-height: 38px;
+    font-size: 0.82rem;
+    padding: 0 0.5rem;
+  }
 }
 
 .hero-copy h1 {
@@ -1285,24 +1359,5 @@ select option {
   .nav-links {
     flex-wrap: wrap;
     gap: 1rem;
-  }
-
-  .feature-card,
-  .product-card,
-  .stat-card {
-    padding: 1.5rem;
-  }
-
-  .products-grid,
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .product {
-    min-height: 480px;
-  }
-
-  .product .product-bg {
-    min-height: 340px;
   }
 }
