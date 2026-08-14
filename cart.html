@@ -34,7 +34,7 @@
     <section id="cart-view">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
         <div id="cart-empty-hint" style="color:#cbd5e1;"></div>
-        <button id="clear-cart-page" class="button button-secondary" type="button">Clear Cart</button>
+        <button id="clear-cart-page" class="button button-secondary" type="button">Clear All</button>
       </div>
 
       <div id="cart-items"></div>
@@ -211,18 +211,10 @@
       const cartModal = document.getElementById('cart-modal');
       const closeCart = document.getElementById('close-cart');
       if (cartBtn && cartModal){
-        cartBtn.addEventListener('click', ()=>{
-          cartModal.classList.remove('hidden');
-          document.documentElement.classList.add('modal-open');
-          document.body.classList.add('modal-open');
-        });
+        cartBtn.addEventListener('click', ()=>cartModal.classList.remove('hidden'));
       }
       if (closeCart && cartModal){
-        closeCart.addEventListener('click', ()=>{
-          cartModal.classList.add('hidden');
-          document.documentElement.classList.remove('modal-open');
-          document.body.classList.remove('modal-open');
-        });
+        closeCart.addEventListener('click', ()=>cartModal.classList.add('hidden'));
       }
       const checkoutBtn = document.getElementById('checkout-btn');
       if (checkoutBtn && cartModal){

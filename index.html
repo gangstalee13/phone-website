@@ -21,7 +21,6 @@
       </nav>
       <div class="header-actions">
         <button id="cart-btn" class="button button-primary">Cart (<span id="cart-count">0</span>)</button>
-        <button id="clear-cart-btn" class="button button-secondary" type="button">Clear Cart</button>
         <a href="checkout.html" class="button button-primary">Checkout</a>
         <a href="products.html" class="button button-primary">Shop Now</a>
       </div>
@@ -140,6 +139,9 @@
     <div class="modal-content">
       <h2>Your Cart</h2>
       <ul id="cart-list"></ul>
+      <div style="margin:0.75rem 0;display:flex;gap:0.75rem;">
+        <button id="clear-cart-btn" class="button button-secondary" type="button">Clear All</button>
+      </div>
       <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
       <a id="checkout-btn" href="checkout.html" class="button button-primary">Checkout</a>
       <button id="close-cart" class="button button-secondary">Close</button>
