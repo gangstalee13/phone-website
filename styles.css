@@ -464,6 +464,59 @@ select option {
   color: #cbd5e1;
 }
 
+.trust-bar {
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.trust-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.75rem 2.5rem;
+  padding: 1.5rem 1rem;
+}
+
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #cbd5e1;
+  font-size: 0.92rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.trust-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.65rem;
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  flex: 0 0 auto;
+}
+
+.trust-badge-icon svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+@media (max-width: 640px) {
+  .trust-bar-inner {
+    justify-content: flex-start;
+    gap: 1rem 1.5rem;
+  }
+
+  .trust-badge {
+    font-size: 0.85rem;
+  }
+}
+
 .hero {
   position: relative;
   min-height: 100vh;
