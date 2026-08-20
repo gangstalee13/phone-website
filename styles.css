@@ -402,10 +402,20 @@ select option {
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: white;
+}
+
+.logo-badge {
+  flex: 0 0 auto;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 0.5rem;
 }
 
 .nav-links {
