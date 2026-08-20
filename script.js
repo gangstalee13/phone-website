@@ -1,26 +1,26 @@
 const PRODUCTS_URL = 'products.json';
 const INLINE_PRODUCTS = [
-  {"id":"iphone-12","name":"iPhone 12","price":230,"desc":"6.1-inch display, A14 Bionic","image":"images/iphone-12.png"},
-  {"id":"iphone-12-pro","name":"iPhone 12 Pro","price":280,"desc":"6.1-inch display, A14 Bionic, Pro camera","image":"images/12 pro.png"},
-  {"id":"iphone-12-pro-max","name":"iPhone 12 Pro Max","price":350,"desc":"6.7-inch display, A14 Bionic, Pro Max camera","image":"images/12 promax.png"},
-  {"id":"iphone-13","name":"iPhone 13","price":330,"desc":"6.1-inch display, A15 Bionic","image":"images/13.png"},
-  {"id":"iphone-13-pro","name":"iPhone 13 Pro","price":400,"desc":"6.1-inch display, A15 Bionic, Pro camera","image":"images/13 pro.png"},
-  {"id":"iphone-13-pro-max","name":"iPhone 13 Pro Max","price":450,"desc":"6.7-inch display, A15 Bionic, Pro Max camera","image":"images/13 promax.png"},
-  {"id":"iphone-14","name":"iPhone 14","price":400,"desc":"6.1-inch display, A16 Bionic","image":"images/14.png"},
-  {"id":"iphone-14-plus","name":"iPhone 14 Plus","price":430,"desc":"6.7-inch display, A16 Bionic","image":"images/14 plus.png"},
-  {"id":"iphone-14-pro","name":"iPhone 14 Pro","price":480,"desc":"6.1-inch display, A16 Bionic, Pro camera","image":"images/14 pro.png"},
-  {"id":"iphone-14-pro-max","name":"iPhone 14 Pro Max","price":550,"desc":"6.7-inch display, A16 Bionic, Pro Max camera","image":"images/14 promax.png"},
-  {"id":"iphone-15","name":"iPhone 15","price":475,"desc":"6.1-inch display, A17 Bionic","image":"images/15.png"},
-  {"id":"iphone-15-plus","name":"iPhone 15 Plus","price":530,"desc":"6.7-inch display, A17 Bionic","image":"images/15 plus.png"},
-  {"id":"iphone-15-pro","name":"iPhone 15 Pro","price":600,"desc":"6.1-inch display, A17 Bionic, Pro camera","image":"images/15 pro.png"},
-  {"id":"iphone-15-pro-max","name":"iPhone 15 Pro Max","price":700,"desc":"6.7-inch display, A17 Bionic, Pro Max camera","image":"images/15-promax.png"},
-  {"id":"iphone-16","name":"iPhone 16","price":660,"desc":"6.1-inch display, A18 Bionic","image":"images/16.png"},
-  {"id":"iphone-16-plus","name":"iPhone 16 Plus","price":730,"desc":"6.7-inch display, A18 Bionic","image":"images/16-plus.png"},
-  {"id":"iphone-16-pro","name":"iPhone 16 Pro","price":780,"desc":"6.1-inch display, A18 Bionic, Pro camera","image":"images/16-pro.png"},
-  {"id":"iphone-16-pro-max","name":"iPhone 16 Pro Max","price":850,"desc":"6.9-inch display, A18 Bionic, Pro Max camera","image":"images/16-promax.png"},
-  {"id":"iphone-17","name":"iPhone 17","price":830,"desc":"6.1-inch display, A19 Bionic","image":"images/17.png"},
-  {"id":"iphone-17-pro","name":"iPhone 17 Pro","price":980,"desc":"6.1-inch display, A19 Bionic, Pro camera","image":"images/17-pro.png"},
-  {"id":"iphone-17-pro-max","name":"iPhone 17 Pro Max","price":1300,"desc":"6.9-inch display, A19 Bionic, Pro Max","image":"images/17-promax.png"},
+  {"id":"iphone-12","name":"iPhone 12","price":230,"desc":"6.1-inch display, A14 Bionic","image":"images/iphone-12.png","colors":[{"name":"Black","hex":"#1C1C1E"},{"name":"White","hex":"#F5F5F0"},{"name":"Red","hex":"#C81E3A"},{"name":"Green","hex":"#B7CDBB"},{"name":"Blue","hex":"#7FA8B8"},{"name":"Purple","hex":"#D8CBE0"}]},
+  {"id":"iphone-12-pro","name":"iPhone 12 Pro","price":280,"desc":"6.1-inch display, A14 Bionic, Pro camera","image":"images/12 pro.png","colors":[{"name":"Silver","hex":"#F0F1F3"},{"name":"Graphite","hex":"#54524F"},{"name":"Gold","hex":"#F9E5C9"},{"name":"Pacific Blue","hex":"#3B4A5A"}]},
+  {"id":"iphone-12-pro-max","name":"iPhone 12 Pro Max","price":350,"desc":"6.7-inch display, A14 Bionic, Pro Max camera","image":"images/12 promax.png","colors":[{"name":"Silver","hex":"#F0F1F3"},{"name":"Graphite","hex":"#54524F"},{"name":"Gold","hex":"#F9E5C9"},{"name":"Pacific Blue","hex":"#3B4A5A"}]},
+  {"id":"iphone-13","name":"iPhone 13","price":330,"desc":"6.1-inch display, A15 Bionic","image":"images/13.png","colors":[{"name":"Pink","hex":"#F8CDD9"},{"name":"Blue","hex":"#A7C6E2"},{"name":"Midnight","hex":"#1D1D1F"},{"name":"Starlight","hex":"#F5F0E6"},{"name":"Red","hex":"#C81E3A"},{"name":"Green","hex":"#A0BFA6"}]},
+  {"id":"iphone-13-pro","name":"iPhone 13 Pro","price":400,"desc":"6.1-inch display, A15 Bionic, Pro camera","image":"images/13 pro.png","colors":[{"name":"Graphite","hex":"#4C4A48"},{"name":"Gold","hex":"#F4E3C9"},{"name":"Silver","hex":"#F0F0EE"},{"name":"Sierra Blue","hex":"#A9C0D6"},{"name":"Alpine Green","hex":"#5C6E5F"}]},
+  {"id":"iphone-13-pro-max","name":"iPhone 13 Pro Max","price":450,"desc":"6.7-inch display, A15 Bionic, Pro Max camera","image":"images/13 promax.png","colors":[{"name":"Graphite","hex":"#4C4A48"},{"name":"Gold","hex":"#F4E3C9"},{"name":"Silver","hex":"#F0F0EE"},{"name":"Sierra Blue","hex":"#A9C0D6"},{"name":"Alpine Green","hex":"#5C6E5F"}]},
+  {"id":"iphone-14","name":"iPhone 14","price":400,"desc":"6.1-inch display, A16 Bionic","image":"images/14.png","colors":[{"name":"Midnight","hex":"#1D1D1F"},{"name":"Starlight","hex":"#F5F0E6"},{"name":"Red","hex":"#C81E3A"},{"name":"Blue","hex":"#93B4D0"},{"name":"Purple","hex":"#D3C6DD"},{"name":"Yellow","hex":"#F3E2A0"}]},
+  {"id":"iphone-14-plus","name":"iPhone 14 Plus","price":430,"desc":"6.7-inch display, A16 Bionic","image":"images/14 plus.png","colors":[{"name":"Midnight","hex":"#1D1D1F"},{"name":"Starlight","hex":"#F5F0E6"},{"name":"Red","hex":"#C81E3A"},{"name":"Blue","hex":"#93B4D0"},{"name":"Purple","hex":"#D3C6DD"},{"name":"Yellow","hex":"#F3E2A0"}]},
+  {"id":"iphone-14-pro","name":"iPhone 14 Pro","price":480,"desc":"6.1-inch display, A16 Bionic, Pro camera","image":"images/14 pro.png","colors":[{"name":"Space Black","hex":"#2B2A28"},{"name":"Silver","hex":"#F0F0EE"},{"name":"Gold","hex":"#F4E3C9"},{"name":"Deep Purple","hex":"#4B3B54"}]},
+  {"id":"iphone-14-pro-max","name":"iPhone 14 Pro Max","price":550,"desc":"6.7-inch display, A16 Bionic, Pro Max camera","image":"images/14 promax.png","colors":[{"name":"Space Black","hex":"#2B2A28"},{"name":"Silver","hex":"#F0F0EE"},{"name":"Gold","hex":"#F4E3C9"},{"name":"Deep Purple","hex":"#4B3B54"}]},
+  {"id":"iphone-15","name":"iPhone 15","price":475,"desc":"6.1-inch display, A17 Bionic","image":"images/15.png","colors":[{"name":"Pink","hex":"#F7C6D7"},{"name":"Blue","hex":"#A7D3F5"},{"name":"Green","hex":"#C7F4D6"},{"name":"Black","hex":"#0F172A"}]},
+  {"id":"iphone-15-plus","name":"iPhone 15 Plus","price":530,"desc":"6.7-inch display, A17 Bionic","image":"images/15 plus.png","colors":[{"name":"Green","hex":"#C7F4D6"},{"name":"Blue","hex":"#A7D3F5"},{"name":"Black","hex":"#0F172A"}]},
+  {"id":"iphone-15-pro","name":"iPhone 15 Pro","price":600,"desc":"6.1-inch display, A17 Bionic, Pro camera","image":"images/15 pro.png","colors":[{"name":"Black","hex":"#0B1220"},{"name":"Silver","hex":"#F3F4F6"},{"name":"Blue","hex":"#6EA8FF"},{"name":"Titanium","hex":"#D9C7B8"}]},
+  {"id":"iphone-15-pro-max","name":"iPhone 15 Pro Max","price":700,"desc":"6.7-inch display, A17 Bionic, Pro Max camera","image":"images/15-promax.png","colors":[{"name":"Black","hex":"#0B1220"},{"name":"Silver","hex":"#F3F4F6"},{"name":"Titanium","hex":"#D9C7B8"}]},
+  {"id":"iphone-16","name":"iPhone 16","price":660,"desc":"6.1-inch display, A18 Bionic","image":"images/16.png","colors":[{"name":"Gold","hex":"#D4A76A"},{"name":"Black","hex":"#0F172A"},{"name":"White","hex":"#FFFFFF"}]},
+  {"id":"iphone-16-plus","name":"iPhone 16 Plus","price":730,"desc":"6.7-inch display, A18 Bionic","image":"images/16-plus.png","colors":[{"name":"Gold","hex":"#D4A76A"},{"name":"Black","hex":"#0F172A"}]},
+  {"id":"iphone-16-pro","name":"iPhone 16 Pro","price":780,"desc":"6.1-inch display, A18 Bionic, Pro camera","image":"images/16-pro.png","colors":[{"name":"Black","hex":"#0B1220"},{"name":"Silver","hex":"#F3F4F6"},{"name":"Blue","hex":"#6EA8FF"}]},
+  {"id":"iphone-16-pro-max","name":"iPhone 16 Pro Max","price":850,"desc":"6.9-inch display, A18 Bionic, Pro Max camera","image":"images/16-promax.png","colors":[{"name":"Black","hex":"#0B1220"},{"name":"Silver","hex":"#F3F4F6"}]},
+  {"id":"iphone-17","name":"iPhone 17","price":830,"desc":"6.1-inch display, A19 Bionic","image":"images/17.png","colors":[{"name":"Lavender","hex":"#D8CBEA"},{"name":"Sage","hex":"#B9C6AE"},{"name":"Mist Blue","hex":"#B7C7D6"},{"name":"White","hex":"#F2F2ED"},{"name":"Black","hex":"#1D1D1F"}]},
+  {"id":"iphone-17-pro","name":"iPhone 17 Pro","price":980,"desc":"6.1-inch display, A19 Bionic, Pro camera","image":"images/17-pro.png","colors":[{"name":"Cosmic Orange","hex":"#D9772E"},{"name":"Deep Blue","hex":"#33415C"},{"name":"Silver","hex":"#EFEFEA"}]},
+  {"id":"iphone-17-pro-max","name":"iPhone 17 Pro Max","price":1300,"desc":"6.9-inch display, A19 Bionic, Pro Max","image":"images/17-promax.png","colors":[{"name":"Cosmic Orange","hex":"#D9772E"},{"name":"Deep Blue","hex":"#33415C"},{"name":"Silver","hex":"#EFEFEA"}]},
   {"id":"camera-lens-kit","name":"Pro Camera Lens Kit","price":5,"desc":"Attachable wide-angle and macro lenses for sharper photos.","image":"images/camera-lenses.jpeg"},
   {"id":"silicone-cover","name":"Silicone Protection Cover","price":5,"desc":"Soft-touch silicone case with raised edges for everyday protection.","image":"images/silicon-covers.jpeg"},
   {"id":"screen-protector","name":"Backgalss repair","price":30,"desc":"get your original back galss with skilled techncians.","image":"images/backglasses.jpeg"}
@@ -119,7 +119,7 @@ function renderProducts(limit){
     // build color swatches if available
     let colorsHtml = '';
     if (p.colors && Array.isArray(p.colors) && p.colors.length){
-      colorsHtml = `<div class="colors">` + p.colors.map(c=>`<button class="color-swatch" data-color="${c.name}" title="${c.name}" style="background:${c.hex}"></button>`).join('') + `</div>`;
+      colorsHtml = `<div class="colors">` + p.colors.map(c=>`<button type="button" class="color-swatch" data-color="${c.name}" title="${c.name}" aria-label="${c.name}" style="background:${c.hex}"></button>`).join('') + `</div><div class="selected-color-label">${p.colors[0].name}</div>`;
     }
 
     el.innerHTML = `
@@ -141,11 +141,13 @@ function renderProducts(limit){
       el.dataset.defaultColor = p.colors[0].name;
       el.dataset.selectedColor = p.colors[0].name;
       const swatches = el.querySelectorAll('.color-swatch');
+      const label = el.querySelector('.selected-color-label');
       swatches.forEach((s, idx)=>{
         s.addEventListener('click', (ev)=>{
           swatches.forEach(x=>x.classList.remove('selected'));
           ev.currentTarget.classList.add('selected');
           el.dataset.selectedColor = ev.currentTarget.dataset.color;
+          if (label) label.textContent = ev.currentTarget.dataset.color;
         });
         if (idx===0) s.classList.add('selected');
       });

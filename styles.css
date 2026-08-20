@@ -886,6 +886,20 @@ select option {
     font-size: 1.05rem;
   }
 
+  .product .colors {
+    gap: 0.4rem;
+    margin: 0.1rem 0 -0.05rem;
+  }
+
+  .product .color-swatch {
+    width: 20px;
+    height: 20px;
+  }
+
+  .product .selected-color-label {
+    display: none;
+  }
+
   .product .actions {
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
@@ -1137,6 +1151,41 @@ select option {
   font-weight: 700;
   color: #ffffff;
 }
+
+.product .colors {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  margin: 0.15rem 0 -0.1rem;
+}
+
+.product .color-swatch {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.product .color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.product .color-swatch.selected {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+}
+
+.product .selected-color-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: -0.35rem;
+}
+
 .product .actions {
   display: grid;
   grid-template-columns: 1.3fr 1fr;

@@ -4,70 +4,290 @@
     "name": "iPhone 12",
     "price": 230,
     "desc": "6.1-inch display, A14 Bionic",
-    "image": "images/iphone-12.png"
+    "image": "images/iphone-12.png",
+    "colors": [
+      {
+        "name": "Black",
+        "hex": "#1C1C1E"
+      },
+      {
+        "name": "White",
+        "hex": "#F5F5F0"
+      },
+      {
+        "name": "Red",
+        "hex": "#C81E3A"
+      },
+      {
+        "name": "Green",
+        "hex": "#B7CDBB"
+      },
+      {
+        "name": "Blue",
+        "hex": "#7FA8B8"
+      },
+      {
+        "name": "Purple",
+        "hex": "#D8CBE0"
+      }
+    ]
   },
   {
     "id": "iphone-12-pro",
     "name": "iPhone 12 Pro",
     "price": 280,
     "desc": "6.1-inch display, A14 Bionic, Pro camera",
-    "image": "images/12 pro.png"
+    "image": "images/12 pro.png",
+    "colors": [
+      {
+        "name": "Silver",
+        "hex": "#F0F1F3"
+      },
+      {
+        "name": "Graphite",
+        "hex": "#54524F"
+      },
+      {
+        "name": "Gold",
+        "hex": "#F9E5C9"
+      },
+      {
+        "name": "Pacific Blue",
+        "hex": "#3B4A5A"
+      }
+    ]
   },
   {
     "id": "iphone-12-pro-max",
     "name": "iPhone 12 Pro Max",
     "price": 350,
     "desc": "6.7-inch display, A14 Bionic, Pro Max camera",
-    "image": "images/12 promax.png"
+    "image": "images/12 promax.png",
+    "colors": [
+      {
+        "name": "Silver",
+        "hex": "#F0F1F3"
+      },
+      {
+        "name": "Graphite",
+        "hex": "#54524F"
+      },
+      {
+        "name": "Gold",
+        "hex": "#F9E5C9"
+      },
+      {
+        "name": "Pacific Blue",
+        "hex": "#3B4A5A"
+      }
+    ]
   },
   {
     "id": "iphone-13",
     "name": "iPhone 13",
     "price": 330,
     "desc": "6.1-inch display, A15 Bionic",
-    "image": "images/13.png"
+    "image": "images/13.png",
+    "colors": [
+      {
+        "name": "Pink",
+        "hex": "#F8CDD9"
+      },
+      {
+        "name": "Blue",
+        "hex": "#A7C6E2"
+      },
+      {
+        "name": "Midnight",
+        "hex": "#1D1D1F"
+      },
+      {
+        "name": "Starlight",
+        "hex": "#F5F0E6"
+      },
+      {
+        "name": "Red",
+        "hex": "#C81E3A"
+      },
+      {
+        "name": "Green",
+        "hex": "#A0BFA6"
+      }
+    ]
   },
   {
     "id": "iphone-13-pro",
     "name": "iPhone 13 Pro",
     "price": 400,
     "desc": "6.1-inch display, A15 Bionic, Pro camera",
-    "image": "images/13 pro.png"
+    "image": "images/13 pro.png",
+    "colors": [
+      {
+        "name": "Graphite",
+        "hex": "#4C4A48"
+      },
+      {
+        "name": "Gold",
+        "hex": "#F4E3C9"
+      },
+      {
+        "name": "Silver",
+        "hex": "#F0F0EE"
+      },
+      {
+        "name": "Sierra Blue",
+        "hex": "#A9C0D6"
+      },
+      {
+        "name": "Alpine Green",
+        "hex": "#5C6E5F"
+      }
+    ]
   },
   {
     "id": "iphone-13-pro-max",
     "name": "iPhone 13 Pro Max",
     "price": 450,
     "desc": "6.7-inch display, A15 Bionic, Pro Max camera",
-    "image": "images/13 promax.png"
+    "image": "images/13 promax.png",
+    "colors": [
+      {
+        "name": "Graphite",
+        "hex": "#4C4A48"
+      },
+      {
+        "name": "Gold",
+        "hex": "#F4E3C9"
+      },
+      {
+        "name": "Silver",
+        "hex": "#F0F0EE"
+      },
+      {
+        "name": "Sierra Blue",
+        "hex": "#A9C0D6"
+      },
+      {
+        "name": "Alpine Green",
+        "hex": "#5C6E5F"
+      }
+    ]
   },
   {
     "id": "iphone-14",
     "name": "iPhone 14",
     "price": 400,
     "desc": "6.1-inch display, A16 Bionic",
-    "image": "images/14.png"
+    "image": "images/14.png",
+    "colors": [
+      {
+        "name": "Midnight",
+        "hex": "#1D1D1F"
+      },
+      {
+        "name": "Starlight",
+        "hex": "#F5F0E6"
+      },
+      {
+        "name": "Red",
+        "hex": "#C81E3A"
+      },
+      {
+        "name": "Blue",
+        "hex": "#93B4D0"
+      },
+      {
+        "name": "Purple",
+        "hex": "#D3C6DD"
+      },
+      {
+        "name": "Yellow",
+        "hex": "#F3E2A0"
+      }
+    ]
   },
   {
     "id": "iphone-14-plus",
     "name": "iPhone 14 Plus",
     "price": 430,
     "desc": "6.7-inch display, A16 Bionic",
-    "image": "images/14 plus.png"
+    "image": "images/14 plus.png",
+    "colors": [
+      {
+        "name": "Midnight",
+        "hex": "#1D1D1F"
+      },
+      {
+        "name": "Starlight",
+        "hex": "#F5F0E6"
+      },
+      {
+        "name": "Red",
+        "hex": "#C81E3A"
+      },
+      {
+        "name": "Blue",
+        "hex": "#93B4D0"
+      },
+      {
+        "name": "Purple",
+        "hex": "#D3C6DD"
+      },
+      {
+        "name": "Yellow",
+        "hex": "#F3E2A0"
+      }
+    ]
   },
   {
     "id": "iphone-14-pro",
     "name": "iPhone 14 Pro",
     "price": 480,
     "desc": "6.1-inch display, A16 Bionic, Pro camera",
-    "image": "images/14 pro.png"
+    "image": "images/14 pro.png",
+    "colors": [
+      {
+        "name": "Space Black",
+        "hex": "#2B2A28"
+      },
+      {
+        "name": "Silver",
+        "hex": "#F0F0EE"
+      },
+      {
+        "name": "Gold",
+        "hex": "#F4E3C9"
+      },
+      {
+        "name": "Deep Purple",
+        "hex": "#4B3B54"
+      }
+    ]
   },
   {
     "id": "iphone-14-pro-max",
     "name": "iPhone 14 Pro Max",
     "price": 550,
     "desc": "6.7-inch display, A16 Bionic, Pro Max camera",
-    "image": "images/14 promax.png"
+    "image": "images/14 promax.png",
+    "colors": [
+      {
+        "name": "Space Black",
+        "hex": "#2B2A28"
+      },
+      {
+        "name": "Silver",
+        "hex": "#F0F0EE"
+      },
+      {
+        "name": "Gold",
+        "hex": "#F4E3C9"
+      },
+      {
+        "name": "Deep Purple",
+        "hex": "#4B3B54"
+      }
+    ]
   },
   {
     "id": "iphone-15",
@@ -242,21 +462,71 @@
     "name": "iPhone 17",
     "price": 830,
     "desc": "6.1-inch display, A19 Bionic",
-    "image": "images/17.png"
+    "image": "images/17.png",
+    "colors": [
+      {
+        "name": "Lavender",
+        "hex": "#D8CBEA"
+      },
+      {
+        "name": "Sage",
+        "hex": "#B9C6AE"
+      },
+      {
+        "name": "Mist Blue",
+        "hex": "#B7C7D6"
+      },
+      {
+        "name": "White",
+        "hex": "#F2F2ED"
+      },
+      {
+        "name": "Black",
+        "hex": "#1D1D1F"
+      }
+    ]
   },
   {
     "id": "iphone-17-pro",
     "name": "iPhone 17 Pro",
     "price": 980,
     "desc": "6.1-inch display, A19 Bionic, Pro camera",
-    "image": "images/17-pro.png"
+    "image": "images/17-pro.png",
+    "colors": [
+      {
+        "name": "Cosmic Orange",
+        "hex": "#D9772E"
+      },
+      {
+        "name": "Deep Blue",
+        "hex": "#33415C"
+      },
+      {
+        "name": "Silver",
+        "hex": "#EFEFEA"
+      }
+    ]
   },
   {
     "id": "iphone-17-pro-max",
     "name": "iPhone 17 Pro Max",
     "price": 1300,
     "desc": "6.9-inch display, A19 Bionic, Pro Max",
-    "image": "images/17-promax.png"
+    "image": "images/17-promax.png",
+    "colors": [
+      {
+        "name": "Cosmic Orange",
+        "hex": "#D9772E"
+      },
+      {
+        "name": "Deep Blue",
+        "hex": "#33415C"
+      },
+      {
+        "name": "Silver",
+        "hex": "#EFEFEA"
+      }
+    ]
   },
   {
     "id": "camera-lens-kit",

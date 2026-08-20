@@ -71,6 +71,11 @@
   color: #f8fafc;
 }
 
+.cart-row-info .cart-row-color {
+  font-weight: 500;
+  color: #94a3b8;
+}
+
 .cart-row-info .cart-row-desc {
   color: #94a3b8;
   font-size: 0.88rem;
@@ -154,13 +159,6 @@
 
 .payment-method-fields.hidden {
   display: none;
-}
-
-.ecocash-hint {
-  margin: 0;
-  color: #94a3b8;
-  font-size: 0.85rem;
-  line-height: 1.5;
 }
 
 @media (max-width: 520px) {
